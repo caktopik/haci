@@ -12,13 +12,9 @@ class Coba extends Hacicore {
     public function index()
 	{
         $hacilib = $this->load->library('hacilib');
-        echo $this->hacilib->_get_title_admin_name();
-        $this->hacilib->_set_title_admin_name('auoo');
-        echo $this->hacilib->_get_title_admin_name();
+        $list_setting = $this->hacilib->_get_setting();
+        
+        echo print_r($list_setting);
 
-        echo '=========================';
-        echo $this->_get_tes();
-        $this->_set_tes('Bismillah');
-        echo $this->_get_tes();
 	}
 }

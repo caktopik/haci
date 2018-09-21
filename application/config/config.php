@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://192.168.88.129/haci';
+$config['base_url'] = 'http://192.168.88.134/haci';
 
 /*
 |--------------------------------------------------------------------------
@@ -521,6 +521,32 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+// $classname = 'MY_Hacicore';
+spl_autoload_register
+(
+    function ($classname)
+    {
+        if(strpos($classname,'CI_') == 0)
+        {
+            if (is_readable(APPPATH . 'core/' . $classname . '.php'))
+            {
+                require_once(APPPATH . 'core/' . $classname . '.php');
+            }
+        }
+    }
+);
+// function __autoload($classname)
+// {
+//     if(strpos($classname,'CI_') == 0)
+//     {
+//         $file = APPPATH.'core/'.$classname.'.php';
+//         if(file_exists($file))
+//         {
+//             @include_once($file);
+//         }
+//     }
+// }
 
 /*
 |--------------------------------------------------------------------------

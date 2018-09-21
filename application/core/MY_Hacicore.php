@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 define ('HACI_VERSION', '1.0.0');
 
-class Hacicore extends CI_Controller
+class MY_Hacicore extends CI_Controller
 {
     // $default_homepage = TRUE; // direct to admin
     protected $hccore;
@@ -99,5 +99,18 @@ class Hacicore extends CI_Controller
             redirect($type_controller.'/'.$name_controller);
         }
 
+    }
+
+    public function _render_view_admin($content, $data)
+    {
+        $this->load->view('admin/adminlte/admin_header', $data);
+        $this->load->view('admin/adminlte/admin_sidebar', $data);
+        $this->load->view($content, $data);
+        $this->load->view('admin/adminlte/admin_footer', $data);
+    }
+
+    public function _render_view_site()
+    {
+        
     }
 }

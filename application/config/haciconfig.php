@@ -1,6 +1,39 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// $classname = 'MY_Hacicore';
+spl_autoload_register(function ($classname)
+{
+    if(strpos($classname,'CI_') == 0)
+    {
+        if (is_readable(APPPATH . 'core/' . $classname . '.php'))
+        {
+         require_once(APPPATH . 'core/' . $classname . '.php');
+        }
+    }
+});
+// function __autoload($classname)
+// {
+//     if(strpos($classname,'CI_') == 0)
+//     {
+//         $file = APPPATH.'core/'.$classname.'.php';
+//         if(file_exists($file))
+//         {
+//             @include_once($file);
+//         }
+//     }
+// }
+
+/*
+|--------------------------------------------------------------------------
+| Set Modules Location
+|--------------------------------------------------------------------------
+|
+*/
+$config['modules_locations'] = array(
+    APPPATH.'modules/' => '../modules/',
+);
+
 /*
 |--------------------------------------------------------------------------
 | Admin & Site Theme
@@ -37,3 +70,7 @@ $config['hcconfig']['title_site_name'] = 'Haci App';
 */
 
 $config['hcconfig']['default_site'] = 'admin';
+
+$config['hcconfig']['assets'] = 'assets';
+$config['hcconfig']['assets_admin'] = $config['hcconfig']['assets'] . '/admin';
+$config['hcconfig']['assets_site'] = $config['hcconfig']['assets'] . '/site';

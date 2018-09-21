@@ -1,14 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Haci Library Class
- * 
- * @package         CodeIgniter
- * @subpackage      Libraries
- * @author			Taufik Arief Widodo
- */
+* Haci Library Class
+* 
+* @package         CodeIgniter
+* @subpackage      Libraries
+* @author			Taufik Arief Widodo
+*/
 
-// define ('ASSETS', )
+define ('ASSETSADMIN', '');
+define ('ASSETSSITE', '');
 
 class Hacilib
 {
@@ -16,12 +17,7 @@ class Hacilib
     private $_config;
     private $_data = array();
     private $_setting = array();
-    private $_admin_theme = 'adminlte'; // must load via db
-    private $_site_theme = NULL ; // must load via db
-    private $_title_admin_name = 'Haci App2'; // must load via db
-    private $_title_site_name = 'Haci App2'; // must load via db
-    private $_default_site = 'admin'; // admin or site // must load via db
-
+    
     public function __construct()
     {
        $this->_ci = &get_instance();
@@ -38,6 +34,20 @@ class Hacilib
         }
     }
 
+    public function _get_default_site()
+    {
+
+    }
+    public function _set_default_site()
+    {
+
+    }
+
+    public function _get_admin_theme()
+    {
+        return $this->_admin_theme;
+    }
+
     public function _set_admin_theme($value)
     {
         // check folder
@@ -51,45 +61,97 @@ class Hacilib
         }
     }
 
-    public function _get_admin_theme()
-    {
-        return $this->_admin_theme;
-    }
-
-    /**
-     * Set Title Site Name
-     * 
-	 * @access	public
-	 * @param	string
-	 * @return	mixed
-	 */
-    public function _set_title_site_name($value)
-    {
-        $this->_title_site_name = $value;
-        return $this->_title_site_name;
-    }
-
     public function _get_title_site_name()
     {
-        return $this->_title_site_name;
+        return $this->_get_setting('title_site_name');
     }
 
     /**
-     * Set Title Admin Name
-     * 
-	 * @access	public
-	 * @param	string
-	 * @return	mixed
-	 */
-    public function _set_title_admin_name($value)
+    * Set Title Site Name
+    * 
+	* @access	public
+	* @param	string
+	* @return	mixed
+	*/
+    public function _set_title_site_name($value)
     {
-        $this->_title_admin_name = $value;
-        // return $this->_title_admin_name;
+        return $this->_set_setting($value, 'title_site_name');
     }
 
+    /**
+     * Get Title Admin Name
+     * 
+	 * @access	public
+	 * @return	mixed
+	 */
     public function _get_title_admin_name()
     {
-        return $this->_title_admin_name;
+        return $this->_get_setting('title_admin_name');
+    }
+
+    public function _set_title_admin_name($value)
+    {
+        return $this->_set_setting($value, 'title_admin_name');
+    }
+
+    /**
+     * Get Setting Name
+     * 
+     * @access private
+     * @param string
+     * @return mixed
+     */
+    private function _get_setting($setting_name = NULL)
+    {
+        $this->_ci->load->database();
+        if ($setting_name == NULL)
+        {
+            $sql = "SELECT * FROM app_setting";
+        }
+        else
+        {
+            $sql = "SELECT * FROM app_setting WHERE setting_name = '". $setting_name ."'";
+        }
+        
+        $query = $this->_ci->db->query($sql);
+        $settings = $query->result_array();
+        if(!empty($settings))
+        {
+            foreach ($settings as $setting)
+            {
+                $this->_setting['setting_id'] = $setting['setting_id']; 
+                $this->_setting['setting_name'] = $setting['setting_name'];
+                $this->_setting['setting_value'] = $setting['setting_value'];
+                $this->_setting['created_at'] = $setting['created_at'];
+                $this->_setting['updated_at'] = $setting['updated_at'];
+                $this->_setting['error'] = "0";
+            }        
+        }
+        else
+        {
+            $this->_setting['error'] = "1";
+        } 
+        return $this->_setting;
+    }
+
+    private function _set_setting($value, $setting_name)
+    {
+
+    }
+
+    public function _register_setting()
+    {
+
+    }
+
+    public function _list_controller()
+    {
+        $_list_controller = array();
+        $this->_ci->load->database();
+        $sql = "SELECT * FROM app_route";
+        $query = $this->_ci->db->query($sql);
+        $_list_controller = $query->result_array();
+        return $_list_controller; 
     }
 
     public function get_path_asset($cat_asset, $name_asset)
@@ -106,14 +168,4 @@ class Hacilib
         }
     }
 
-
-    public function list_controller()
-    {
-        $_list_controller = array();
-        $this->_ci->load->database();
-        $sql = "SELECT * FROM app_route";
-        $query = $this->_ci->db->query($sql);
-        $_list_controller = $query->result_array();
-        return $_list_controller; 
-    }
 }

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends Hacicore {
+class Dashboard extends MY_Hacicore {
 
     public function __construct()
     {
@@ -10,20 +10,7 @@ class Dashboard extends Hacicore {
 
     public function index()
 	{
-        //$this->load->library('hacilib');
-		//echo 'hellow wol';
-        //echo print_r($this->hacilib->list_controller());
-        //echo print_r($this->hacilib->list_controller()['controller']);
-        //Hacicore::get_controller();
-        //Hacicore::correct_route();
-        //echo HACI_VERSION;
-        //$this->hacicore->get_controller();
-        $this->load->library('hacilib');
-        echo $this->hacilib->_get_title_admin_name();
-
-        echo '=========================';
-        echo $this->_get_tes();
-        $this->_set_tes('Dashboard');
-        echo $this->_get_tes();
+        $data['page_title'] = 'Dashboard';
+        $this->_render_view_admin('dashboard', $data);
 	}
 }
