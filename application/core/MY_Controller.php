@@ -3,12 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 define ('HACI_VERSION', '1.0.0');
 
-class MY_Hacicore extends CI_Controller
+class MY_Controller extends CI_Controller
 {
     // $default_homepage = TRUE; // direct to admin
     protected $hccore;
     // public $hclib = $this->load->library('hacilib');
     private $_title_admin_name = 'Haci App';
+    private $data = array();
 
     public function __construct()
     {
@@ -113,4 +114,20 @@ class MY_Hacicore extends CI_Controller
     {
         
     }
+
+    // require_once(APPPATH.'controllers/'.$RTR->directory.$class.'.php');
+
+	// 	if ( ! class_exists($class, FALSE) OR $method[0] === '_' OR method_exists('CI_Controller', $method))
+	// 	{
+	// 		$e404 = TRUE;
+	// 	}
+	// 	elseif (method_exists($class, '_remap'))
+	// 	{
+	// 		$params = array($method, array_slice($URI->rsegments, 2));
+	// 		$method = '_remap';
+	// 	}
+	// 	elseif ( ! method_exists($class, $method))
+	// 	{
+	// 		$e404 = TRUE;
+	// 	}
 }

@@ -1,18 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends MY_Hacicore {
+class Users extends MY_Hacicore {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('adminlte');
-        
     }
 
     public function index()
 	{   
-        $data['page_title'] = 'Dashboard';
+        $data['page_title'] = 'Users';
         $data['page_description'] = 'Control Panel';
 
         $infobox = array (
