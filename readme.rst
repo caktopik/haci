@@ -1,5 +1,5 @@
 ###################
-UNDER - DEVELOPMENT
+This Code still underdevelop
 ###################
 
 ###################
@@ -72,3 +72,10 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+***************
+Credits / Addon
+***************
+-  `Ion Auth <https://github.com/benedmunds/CodeIgniter-Ion-Auth/>`_
+-  `HMVC <https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc>`_
+-  `AdminLTE 2.4 <https://adminlte.io/>`_
