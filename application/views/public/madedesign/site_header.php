@@ -20,27 +20,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/slick.css"> 
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/slick-theme.css">
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/animate.css">
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/iconfont.css">
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/font-awesome.min.css">
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/bootstrap.css">
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/magnific-popup.css">
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/bootsnav.css">
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/slick.css"> 
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/slick-theme.css">
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/animate.css">
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/iconfont.css">
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/magnific-popup.css">
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/bootsnav.css">
 
 
 
         <!--For Plugins external css-->
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/plugins.css" />
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/plugins.css" />
 
         <!--Theme custom css -->
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/style.css">
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/style.css">
 
         <!--Theme Responsive css-->
-        <link rel="stylesheet" href="<?php base_url() ?> site/madedesign/css/responsive.css" />
+        <link rel="stylesheet" href="<?php base_url() ?> assets/public/madedesign/css/responsive.css" />
 
-        <script src="<?php base_url() ?> site/madedesign/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <script src="<?php base_url() ?> assets/public/madedesign/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
@@ -91,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <i class="fa fa-bars"></i>
                         </button>
                         <a class="navbar-brand" href="#brand">
-                            <img src="<?php base_url() ?> site/madedesign/images/logo.png" class="logo" alt="">
+                            <img src="<?php base_url() ?> assets/public/madedesign/images/logo.png" class="logo" alt="">
                             <!--<img src="assets/images/footer-logo.png" class="logo logo-scrolled" alt="">-->
                         </a>
 

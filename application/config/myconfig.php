@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
-| Admin & Site Theme
+| Admin & public Theme
 |--------------------------------------------------------------------------
 |
 | Can be overriden for admin theme with 
@@ -12,30 +12,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Or
 |
 | Can be overriden for admin theme with 
-| $this->template->_set_site_theme('foo');
+| $this->template->_set_public_theme('foo');
 |
 |   Default Admin: 'adminlte'
-|   Default Site : 'madedesign'
+|   Default public : 'madedesign'
 |
 */
 $config['myconfig']['admin_theme'] = 'adminlte'; // static, will be store database for dynamic
-$config['myconfig']['site_theme'] = 'madedesign'; // static, will be store database for dynamic
+$config['myconfig']['public_theme'] = 'madedesign'; // static, will be store database for dynamic
 
 // $config['myconfig']['title_admin_name'] = 'Haci App'; // static, will be store database for dynamic
-// $config['myconfig']['title_site_name'] = 'Haci App'; // static, will be store database for dynamic
+// $config['myconfig']['title_public_name'] = 'Haci App'; // static, will be store database for dynamic
 
 /*
 |--------------------------------------------------------------------------
 | Default Index
 |--------------------------------------------------------------------------
 |
-| It will be redirect to admin or site when access domain.com
+| It will be redirect to admin or public when access domain.com
 | admin for access admin OR
-| site for access frontpage
+| public for access frontpage
 |   Default  : admin
 |
 */
 
 $config['myconfig']['default_site'] = 'admin';
-$config['myconfig']['assets_path'] = array('asset_admin'=>'assets/admin', 'asset_site'=>'assets/site');
-$config['myconfig']['layout_path'] = array('layout_admin'=> APPPATH .'view/admin/','layout_site'=> APPPATH.'view/site/');
+$config['myconfig']['assets_path'] = array('asset_admin'=>'assets/admin', 'asset_public'=>'assets/public');
+$config['myconfig']['layout_path'] = array('layout_admin'=> APPPATH .'view/admin/','layout_public'=> APPPATH.'view/public/');

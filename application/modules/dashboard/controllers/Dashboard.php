@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends MY_Hacicore {
+class Dashboard extends Admin_Controller {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('adminlte');
-        
+        $this->load->library('template');
+        $this->load->helper('adminlte');
     }
 
     public function index()
