@@ -101,10 +101,10 @@ class Hacilib
      * @param string
      * @return mixed
      */
-    private function _get_setting($setting_name = NULL)
+    private function _load_setting($setting_name = NULL)
     {
         $this->_ci->load->database();
-        if ($setting_name == NULL)
+        if (is_null($setting_name))
         {
             $sql = "SELECT * FROM app_setting";
         }

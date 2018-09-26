@@ -7,7 +7,7 @@ class Dashboard extends Admin_Controller {
     {
         parent::__construct();
         $this->load->library('template');
-        $this->load->helper('adminlte');
+        $this->load->helper('adminlte_helper');
     }
 
     public function index()
@@ -28,8 +28,15 @@ class Dashboard extends Admin_Controller {
             ),
         );
 
-        $data['infobox_one'] = $this->adminlte->_info_box($infobox);
-        $this->_render_view_admin('dashboard', $data);
+        $data['infobox_one'] = _info_box($infobox);
+        // $this->_render_view_admin('dashboard', $data);
+        echo 'This message';
+        // $this->template->_render_admin('admin/adminlte/admin_header', $data, FALSE)
+        //             ->_render_admin('admin/adminlte/admin_sidebar', $data, FALSE)
+        //             ->_render_admin('dashboard', $data, FALSE)
+        //             ->_render_admin('admin/adminlte/admin_footer', $data, FALSE);
+        // $this->template->_render_admin('dashboard', $data, FALSE);
+        $this->template->_render_simple($data);
     }
 
     

@@ -23,6 +23,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/adminlte/dist/css/skins/skin-blue.min.css">
+  <?php 
+    foreach( $css as $csskey => $cssvalue)
+    {
+      echo '<link rel="stylesheet" href="'.$cssvalue'">';
+    }
+  ?>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

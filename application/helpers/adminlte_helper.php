@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-    public function _button($class = NULL, $title = 'Button Name', $style = NULL)
+    function _button($class = NULL, $title = 'Button Name', $style = NULL)
     {
         if(empty($class) && empty($style))
         {
@@ -16,7 +16,7 @@
         }
     }
 
-    public function _info_box($parameter = array())
+    function _info_box($parameter = array())
     {
         // $parameter['ib_class'] = $parameter['ib_class'];
         // $parameter['ib_icon'] = $parameter['ib_icon'];
@@ -60,7 +60,7 @@
         return $infobox_html;
     }
 
-    public function _small_box($parameter = array())
+    function _small_box($parameter = array())
     {
         // $parameter['sb_background'] = 'bg-aqua';
         // $parameter['sb_icon'] = 'fa-shopping-cart';
