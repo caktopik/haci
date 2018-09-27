@@ -12,6 +12,7 @@ class Dashboard extends Admin_Controller {
 
     public function index()
 	{   
+        $data = array();
         $data['page_title'] = 'Dashboard';
         $data['page_description'] = 'Control Panel';
 
@@ -29,14 +30,10 @@ class Dashboard extends Admin_Controller {
         );
 
         $data['infobox_one'] = _info_box($infobox);
-        // $this->_render_view_admin('dashboard', $data);
-        echo 'This message';
-        // $this->template->_render_admin('admin/adminlte/admin_header', $data, FALSE)
-        //             ->_render_admin('admin/adminlte/admin_sidebar', $data, FALSE)
-        //             ->_render_admin('dashboard', $data, FALSE)
-        //             ->_render_admin('admin/adminlte/admin_footer', $data, FALSE);
-        // $this->template->_render_admin('dashboard', $data, FALSE);
-        $this->template->_render_simple($data);
+        
+        $this->template->_render_admin('dashboard', $data, FALSE);
+        
+        
     }
 
     

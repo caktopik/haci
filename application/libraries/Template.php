@@ -11,13 +11,18 @@
 class Template
 {
     protected $_ci; // for calling $this->load, $this->db, etc 
-    protected $_config;
+    // protected $_config;
     protected $_data = array();
     protected $_setting = array();
     protected $_template_data = array();
+
+    // variable on myconfig
+    protected $_admin_theme = NULL;
+    protected $_public_theme = NULL;
+    protected $_assets_folder = NULL;
     protected $_assets_path = array();
     protected $_layout_path = array();
-    protected $_assets_folder = NULL;
+    protected $_template_layout = array();
 
     public function __construct()
     {
@@ -34,6 +39,10 @@ class Template
         {
             $this->{'_'.$key} = $value;
         }
+
+        // call load_setting to get configuration from database, if not set on database, data will put from myconfig
+        // still going develop for this
+
         $this->_template_data['title_admin_name'] = '';
         $this->_template_data['title_public_name'] = ''; // $this->_data['title_public_name']
     }
@@ -43,14 +52,13 @@ class Template
         // admin-> http://server/assets/$cat/$path/$name.css
         // public-> http://server/assets/$cat/$path/$name.css
         
-        $value = base_url() .'/'.$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
-        
         if ($cat == 'admin' or $cat == 'public')
         {
+            $value = base_url() .'/'.$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
             $this->_template_data['css'][$cat][$name] = $value;
             return $this;    
         }
-        return $this;
+        // return $this;
     }
 
     public function _get_css()
@@ -66,7 +74,7 @@ class Template
             $this->_template_data['js'][$cat][$location][$name] = $value;
             return $this;
         }
-        return $this;
+        // return $this;
     }
 
     public function _get_js()
@@ -90,9 +98,14 @@ class Template
         foreach($this->_template_data as $_tdkey => $_tdvalue)
         {
             $this->_data['template_data'][$_tdkey] = $_tdvalue;
-            return $this;
+            // return $this;
         }
-        return $this->_ci->load->view($view, $this->_data, $return);
+
+        $this->_data['template_data']['admin_header'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_header', $this->_data, TRUE);
+        $this->_data['template_data']['admin_sidebar'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_sidebar', $this->_data, TRUE);
+        $this->_data['template_data']['admin_content'] = $this->_ci->load->view($view, $this->_data, TRUE);
+        $this->_data['template_data']['admin_footer'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_footer', $this->_data, TRUE);
+        return $this->_ci->load->view('admin/admin_layout', $this->_data, $return);
     }
 
     public function _render_public($view, $data = array(), $return = FALSE)

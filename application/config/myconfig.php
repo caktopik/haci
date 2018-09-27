@@ -36,7 +36,10 @@ $config['myconfig']['public_theme'] = 'madedesign'; // static, will be store dat
 |
 */
 
-$config['myconfig']['default_site'] = 'admin';
+$config['myconfig']['default_site'] = 'admin'; // redirect to admin when open site
+
 $config['myconfig']['assets_folder'] = 'assets';
-$config['myconfig']['assets_path'] = array('asset_admin'=>$config['myconfig']['assets_folder'].'/admin', 'asset_public'=>$config['myconfig']['assets_folder'].'/public');
-$config['myconfig']['layout_path'] = array('layout_admin'=> APPPATH .'view/admin/','layout_public'=> APPPATH.'view/public/');
+$config['myconfig']['assets_path'] = array('asset_admin'=>'admin', 'asset_public'=>'public');
+
+$config['myconfig']['layout_path'] = array('layout_admin'=> 'admin','layout_public'=> 'public');
+$config['myconfig']['template_layout'] = array('template_admin'=>'admin_layout','template_public'=>'public_layout');

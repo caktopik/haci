@@ -24,12 +24,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/adminlte/dist/css/skins/skin-blue.min.css">
   <?php 
-    foreach( $css as $csskey => $cssvalue)
+  if (!empty($template_data['css']))
+  {
+    foreach ($template_data['css']['admin'] as $cssname => $cssvalue)
     {
-      echo '<link rel="stylesheet" href="'.$cssvalue'">';
+      echo '<link rel="stylesheet" href="'.base_url().$cssvalue.'/'.$cssname.'">';
     }
+  }
   ?>
-
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>

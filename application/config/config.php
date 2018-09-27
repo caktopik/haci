@@ -531,17 +531,3 @@ $config['proxy_ips'] = '';
 $config['modules_locations'] = array(
     APPPATH.'modules/' => '../modules/',
 );
-
-// spl_autoload_register
-// (
-//     function ($classname)
-//     {
-//         if(strpos($classname,'CI_') == 0)
-//         {
-//             if (is_readable(APPPATH . 'core/' . $classname . '.php'))
-//             {
-//                 require_once(APPPATH . 'core/' . $classname . '.php');
-//             }
-//         }
-//     }
-// );

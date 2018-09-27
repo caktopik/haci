@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+    Page rendered in <strong>{elapsed_time}</strong> seconds.
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
@@ -98,6 +98,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url(); ?>assets/admin/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url(); ?>assets/admin/adminlte/dist/js/adminlte.min.js"></script>
+
+<?php 
+if (!empty($template_data['js']))
+{
+  foreach ($template_data['js']['admin']['footer'] as $jsname => $jsvalue)
+  {
+    echo '<script src="'.base_url().$jsvalue.'/'.$jsname.'"></script>';
+  }
+}
+?>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
