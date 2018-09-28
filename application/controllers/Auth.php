@@ -5,12 +5,14 @@
  * @property Ion_auth|Ion_auth_model $ion_auth        The ION Auth spark
  * @property CI_Form_validation      $form_validation The form validation library
  */
-class Auth extends CI_Controller
+class Auth extends MY_Controller
 {
+	private $data;
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
 		$this->load->library(array('ion_auth', 'form_validation'));
 		$this->load->helper(array('url', 'language'));
 

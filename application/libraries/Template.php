@@ -105,7 +105,7 @@ class Template
         $this->_data['template_data']['admin_sidebar'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_sidebar', $this->_data, TRUE);
         $this->_data['template_data']['admin_content'] = $this->_ci->load->view($view, $this->_data, TRUE);
         $this->_data['template_data']['admin_footer'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_footer', $this->_data, TRUE);
-        return $this->_ci->load->view('admin/admin_layout', $this->_data, $return);
+        return $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_template_layout['template_admin'], $this->_data, $return);
     }
 
     public function _render_public($view, $data = array(), $return = FALSE)
