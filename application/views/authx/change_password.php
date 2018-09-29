@@ -2,7 +2,7 @@
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open("auth/change_password");?>
+<?php echo form_open("authx/change_password");?>
 
       <p>
             <?php echo lang('change_password_old_password_label', 'old_password');?> <br />

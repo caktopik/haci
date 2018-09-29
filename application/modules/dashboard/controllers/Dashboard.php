@@ -12,10 +12,10 @@ class Dashboard extends Admin_Controller
         // load ion auth
         $this->load->add_package_path(APPPATH.'third_party/ion_auth/');
         $this->load->library('ion_auth');
-        // if(!$this->ion_auth->logged_in())
-        // {
-        //     redirect('auth/login', 'refresh');
-        // }
+        if(!$this->ion_auth->logged_in())
+        {
+             redirect('auth', 'refresh');
+        }
     }
 
     public function index()

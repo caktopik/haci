@@ -5,7 +5,7 @@
  * @property Ion_auth|Ion_auth_model $ion_auth        The ION Auth spark
  * @property CI_Form_validation      $form_validation The form validation library
  */
-class Auth extends MY_Controller
+class Authx extends Public_Controller
 {
 	private $data;
 	public function __construct()
@@ -30,7 +30,7 @@ class Auth extends MY_Controller
 		if (!$this->ion_auth->logged_in())
 		{
 			// redirect them to the login page
-			redirect('auth/login', 'refresh');
+			redirect('authx/login', 'refresh');
 		}
 		else if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
 		{
@@ -49,7 +49,7 @@ class Auth extends MY_Controller
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
+			$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'index', $this->data);
 		}
 	}
 
@@ -82,7 +82,7 @@ class Auth extends MY_Controller
 				// if the login was un-successful
 				// redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
+				redirect('authx/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else
@@ -101,7 +101,7 @@ class Auth extends MY_Controller
 				'type' => 'password',
 			);
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
+			$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'login', $this->data);
 		}
 	}
 
@@ -117,7 +117,7 @@ class Auth extends MY_Controller
 
 		// redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect('auth/login', 'refresh');
+		redirect('authx/login', 'refresh');
 	}
 
 	/**
@@ -131,7 +131,7 @@ class Auth extends MY_Controller
 
 		if (!$this->ion_auth->logged_in())
 		{
-			redirect('auth/login', 'refresh');
+			redirect('authx/login', 'refresh');
 		}
 
 		$user = $this->ion_auth->user()->row();
@@ -168,7 +168,7 @@ class Auth extends MY_Controller
 			);
 
 			// render
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'change_password', $this->data);
+			$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'change_password', $this->data);
 		}
 		else
 		{
@@ -185,7 +185,7 @@ class Auth extends MY_Controller
 			else
 			{
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth/change_password', 'refresh');
+				redirect('authx/change_password', 'refresh');
 			}
 		}
 	}
@@ -225,7 +225,7 @@ class Auth extends MY_Controller
 
 			// set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
+			$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
 		}
 		else
 		{
@@ -245,7 +245,7 @@ class Auth extends MY_Controller
 				}
 
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("auth/forgot_password", 'refresh');
+				redirect("authx/forgot_password", 'refresh');
 			}
 
 			// run the forgotten password method to email an activation code to the user
@@ -255,12 +255,12 @@ class Auth extends MY_Controller
 			{
 				// if there were no errors
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				redirect("authx/login", 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("auth/forgot_password", 'refresh');
+				redirect("authx/forgot_password", 'refresh');
 			}
 		}
 	}
@@ -316,7 +316,7 @@ class Auth extends MY_Controller
 				$this->data['code'] = $code;
 
 				// render
-				$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'reset_password', $this->data);
+				$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'reset_password', $this->data);
 			}
 			else
 			{
@@ -341,12 +341,12 @@ class Auth extends MY_Controller
 					{
 						// if the password was successfully changed
 						$this->session->set_flashdata('message', $this->ion_auth->messages());
-						redirect("auth/login", 'refresh');
+						redirect("authx/login", 'refresh');
 					}
 					else
 					{
 						$this->session->set_flashdata('message', $this->ion_auth->errors());
-						redirect('auth/reset_password/' . $code, 'refresh');
+						redirect('authx/reset_password/' . $code, 'refresh');
 					}
 				}
 			}
@@ -355,7 +355,7 @@ class Auth extends MY_Controller
 		{
 			// if the code is invalid then send them back to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			redirect("authx/forgot_password", 'refresh');
 		}
 	}
 
@@ -386,7 +386,7 @@ class Auth extends MY_Controller
 		{
 			// redirect them to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			redirect("authx/forgot_password", 'refresh');
 		}
 	}
 
@@ -415,7 +415,7 @@ class Auth extends MY_Controller
 			$this->data['csrf'] = $this->_get_csrf_nonce();
 			$this->data['user'] = $this->ion_auth->user($id)->row();
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
+			$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
 		}
 		else
 		{
@@ -436,7 +436,7 @@ class Auth extends MY_Controller
 			}
 
 			// redirect them back to the auth page
-			redirect('auth', 'refresh');
+			redirect('authx', 'refresh');
 		}
 	}
 
@@ -449,7 +449,7 @@ class Auth extends MY_Controller
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('authx', 'refresh');
 		}
 
 		$tables = $this->config->item('tables', 'ion_auth');
@@ -548,7 +548,7 @@ class Auth extends MY_Controller
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+			$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
 		}
 	}
 	/**
@@ -556,7 +556,7 @@ class Auth extends MY_Controller
 	*/
 	public function redirectUser(){
 		if ($this->ion_auth->is_admin()){
-			redirect('auth', 'refresh');
+			redirect('authx', 'refresh');
 		}
 		redirect('/', 'refresh');
 	}
@@ -572,7 +572,7 @@ class Auth extends MY_Controller
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
-			redirect('auth', 'refresh');
+			redirect('authx', 'refresh');
 		}
 
 		$user = $this->ion_auth->user($id)->row();
@@ -699,7 +699,7 @@ class Auth extends MY_Controller
 			'type' => 'password'
 		);
 
-		$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_user', $this->data);
+		$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'edit_user', $this->data);
 	}
 
 	/**
@@ -711,7 +711,7 @@ class Auth extends MY_Controller
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('authx', 'refresh');
 		}
 
 		// validate form input
@@ -747,7 +747,7 @@ class Auth extends MY_Controller
 				'value' => $this->form_validation->set_value('description'),
 			);
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_group', $this->data);
+			$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'create_group', $this->data);
 		}
 	}
 
@@ -761,14 +761,14 @@ class Auth extends MY_Controller
 		// bail if no group id given
 		if (!$id || empty($id))
 		{
-			redirect('auth', 'refresh');
+			redirect('authx', 'refresh');
 		}
 
 		$this->data['title'] = $this->lang->line('edit_group_title');
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('authx', 'refresh');
 		}
 
 		$group = $this->ion_auth->group($id)->row();
@@ -816,7 +816,7 @@ class Auth extends MY_Controller
 			'value' => $this->form_validation->set_value('group_description', $group->description),
 		);
 
-		$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
+		$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
 	}
 
 	/**
