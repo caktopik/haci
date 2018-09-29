@@ -79,3 +79,8 @@ Credits / Addon
 -  `Ion Auth <https://github.com/benedmunds/CodeIgniter-Ion-Auth/>`_
 -  `HMVC <https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc>`_
 -  `AdminLTE 2.4 <https://adminlte.io/>`_
+
+***************
+Donation
+***************
+-  `Buy me a cup of coffee <https://paypal.me/caktopik>`_
