@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>AdminLTE 2 | Forgot Password</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -48,31 +48,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <?php } ?>
   <!-- /.alert alert-danger -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">Enter your email to reset password</p>
 
 
 <!-- form login -->
-<?php echo form_open('auth/login'); ?>
+<?php echo form_open('auth/forgot_password'); ?>
   <div class="form-group has-feedback">
     <?php echo form_input($email); ?>
     <!-- <input name="identity" type="email" class="form-control" placeholder="Email"> -->
     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
   </div>
-  <div class="form-group has-feedback">
-    <?php echo form_password($password); ?>
-    <!-- <input name="password" type="password" class="form-control" placeholder="Password"> -->
-    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-  </div>
   <div class="row">
     <div class="col-xs-8">
-      <div class="checkbox icheck">
-        <label>
-          <input name="remember" value="1" type="checkbox"> Remember Me
-        </label>
-      </div>
+  
     </div>
     <div class="col-xs-4">
-      <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+      <button type="submit" class="btn btn-primary btn-block btn-flat">Reset</button>
     </div>
   </div>
 <?php echo form_close(); ?>
@@ -86,8 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         Google+</a>
     </div> -->
     <!-- /.social-auth-links -->
-    <?php echo anchor('auth/forgot_password', 'I forgot my password'); ?><br>
-    <!-- <a href="register.html" class="text-center">Register a new membership</a> -->
+    <?php echo anchor('auth', '<- Back to Login'); ?><br>
 
   </div>
   <!-- /.login-box-body -->

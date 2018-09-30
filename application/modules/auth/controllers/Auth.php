@@ -12,7 +12,9 @@ class Auth extends Public_Controller
 
         // load ion auth
         $this->load->add_package_path(APPPATH.'third_party/ion_auth/');
-        $this->load->library(array('ion_auth', 'form_validation'));
+        $this->load->library('ion_auth');
+
+        $this->load->library('form_validation');
     }
 
     public function index()
@@ -73,12 +75,22 @@ class Auth extends Public_Controller
 		else
 		{
 			// the user is not logging in so display the login page
-			// set the flash data error message if there is one
+            // set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-            
-            // redirect('auth/login', 'refresh');
-			$this->load->view('login', $this->data, TRUE);   
-		}
+            $this->data['email'] = array('name' => 'email',
+                'id' => 'email',
+                'class' => 'form-control',
+                'placeholder' => 'Email',
+				'type' => 'email',
+				'value' => $this->form_validation->set_value('email'),
+			);
+			$this->data['password'] = array('name' => 'password',
+                'id' => 'password',
+                'class' => 'form-control',
+				'type' => 'password',
+			);
+			$this->load->view('login', $this->data, FALSE);   
+        }
     }
     
     public function logout()
@@ -93,6 +105,30 @@ class Auth extends Public_Controller
     
     public function forgot_password()
     {
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email'); // must enhanced language options
+        
+        if ($this->form_validation->run() === FALSE)
+		{
+			$this->data['type'] = $this->config->item('identity', 'ion_auth');
+			// setup the input
+			$this->data['email'] = array('name' => 'email',
+                'id' => 'email',
+                'class' => 'form-control',
+                'placeholder' => 'Email',
+				'type' => 'email',
+				'value' => $this->form_validation->set_value('email'),
+			);
+
+    		$this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
+	
+			// set any errors and display the form
+			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			// $this->_render_page('authx' . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
+		}
+        
+        
+        $this->load->view('forgot_password', $this->data, FALSE);
+
 
     }
 }
