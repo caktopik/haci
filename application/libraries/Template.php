@@ -23,6 +23,11 @@ class Template
     protected $_assets_path = array();
     protected $_layout_path = array();
     protected $_template_layout = array();
+    
+    // module, method, controller
+    protected $_controller = "";
+    protected $_method = "";
+    protected $_module = "";
 
     public function __construct()
     {
@@ -30,6 +35,13 @@ class Template
        $_config = $this->_ci->config->load('myconfig');
        $_config = $this->_ci->config->item('myconfig');
        $this->_initialize($_config);
+
+       if (method_exists( $this->_ci->router, 'fetch_module' ))
+       {
+           $this->_module 	= $this->_ci->router->fetch_module();
+       }
+       $this->_controller	= $this->_ci->router->fetch_class();
+       $this->_method 		= $this->_ci->router->fetch_method();
     }
 
     public function _initialize($_config)

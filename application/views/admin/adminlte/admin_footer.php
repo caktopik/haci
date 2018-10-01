@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-    Powered by <strong>HACI <?php echo HACIVERSION ?></strong> || Page rendered in <strong>{elapsed_time}</strong> seconds.
+    Powered by <strong>Haci <?php echo HACIVERSION ?></strong> || Page rendered in <strong>{elapsed_time}</strong> seconds.
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.

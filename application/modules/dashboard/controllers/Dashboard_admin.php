@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends Admin_Controller 
+class Dashboard_admin extends Admin_Controller 
 {
     public function __construct()
     {
@@ -40,7 +40,7 @@ class Dashboard extends Admin_Controller
 
         $data['infobox_one'] = _info_box($infobox);
         
-        $this->template->_render_admin('dashboard', $data, FALSE);
+        $this->template->_render_admin('dashboard_admin', $data, FALSE);
         
         
     }
