@@ -40,9 +40,12 @@ class Dashboard_admin extends Admin_Controller
 
         $data['infobox_one'] = _info_box($infobox);
         
-        $this->template->_render_admin('dashboard_admin', $data, FALSE);
-        
-        
+        $this->template->_render_admin('dashboard_admin', $data, FALSE);  
+    }
+
+    public function tes()
+    {
+        echo print_r($this->template->_nav_menu('sidebar_admin_menu'));
     }
 
     

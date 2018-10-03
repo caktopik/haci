@@ -144,16 +144,6 @@ class Hacilib
 
     }
 
-    public function _list_controller()
-    {
-        $_list_controller = array();
-        $this->_ci->load->database();
-        $sql = "SELECT * FROM app_route";
-        $query = $this->_ci->db->query($sql);
-        $_list_controller = $query->result_array();
-        return $_list_controller; 
-    }
-
     public function get_path_asset($cat_asset, $name_asset)
     {
         $this->load->helper('uri');

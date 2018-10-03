@@ -33,8 +33,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <!-- Sidebar Menu -->
   <ul class="sidebar-menu" data-widget="tree">
-    <li class="header">HEADER</li>
+    <li class="header">MAIN NAVIGATION</li>
     <!-- Optionally, you can add icons to the links -->
+    <?php 
+      foreach($template_data['nav_menu'] as $nav)
+      {
+        if(empty($nav['nav_child']))
+        {
+          echo '<li><a href="'.$nav['nav_menu_link'].'"><i class="'.$nav['nav_menu_icon'].'"></i> <span>'.$nav['nav_menu_name'].'</span></a></li>';
+        }
+        else
+        {
+          echo '<li class="treeview"><a href="'.$nav['nav_menu_link'].'"><i class="'.$nav['nav_menu_icon'].'"></i> <span>'.$nav['nav_menu_name'].'</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
+          echo '<ul class="treeview-menu">';
+          foreach($nav['nav_child'] as $nc1)
+          {
+            if(empty($nc1['nav_child']))
+            {
+              echo '<li><a href="'.$nc1['nav_menu_link'].'"><i class="'.$nc1['nav_menu_icon'].'"></i> <span>'.$nc1['nav_menu_name'].'</span></a></li>';
+            }
+            else
+            {
+              echo '<li class="treeview"><a href="'.$nc1['nav_menu_link'].'"><i class="'.$nc1['nav_menu_icon'].'"></i> <span>'.$nc1['nav_menu_name'].'</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
+              echo '<ul class="treeview-menu">';
+              foreach($nc1['nav_child'] as $nc2)
+              {
+                if(empty($nc2['nav_child']))
+                {
+                  echo '<li><a href="'.$nc2['nav_menu_link'].'"><i class="'.$nc2['nav_menu_icon'].'"></i> <span>'.$nc2['nav_menu_name'].'</span></a></li>';
+                }
+                else
+                {
+                  echo '<li class="treeview"><a href="'.$nc2['nav_menu_link'].'"><i class="'.$nc2['nav_menu_icon'].'"></i> <span>'.$nc2['nav_menu_name'].'</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
+                  echo '<ul class="treeview-menu">';
+                  foreach($nc2['nav_child'] as $nc3)
+                  {
+                    echo '<li><a href="'.$nc3['nav_menu_link'].'"><i class="'.$nc3['nav_menu_icon'].'"></i> <span>'.$nc3['nav_menu_name'].'</span></a></li>';
+                  }
+                  echo '</ul>';
+                  echo '</li>';                            
+                }
+              }   
+              echo '</ul>';
+              echo '</li>';             
+            }       
+          } 
+          echo '</ul>';
+          echo '</li>';
+        }
+      } 
+    ?>
     <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
     <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
     <li class="treeview">
@@ -53,4 +101,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <!-- /.sidebar -->
 </aside>
-

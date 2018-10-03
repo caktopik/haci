@@ -94,14 +94,24 @@ class Template
         return $this->_template_data['js'];
     }
 
-    public function _set_nav()
+    protected function _nav_menu($location_nav, $level = 0)
     {
-
-    }
-
-    public function _get_nav()
-    {
-
+        $this->_ci->load->database();
+        
+        $this->_ci->db->distinct();
+        $this->_ci->db->select('*');
+        $this->_ci->db->order_by('nav_menu_sort', 'ASC');
+        $nav_menus = $this->_ci->db->get_where('app_nav_menu', 'nav_menu_parent_id = '.$level.' AND nav_menu_location = "'.$location_nav.'"')->result_array();
+        
+        foreach($nav_menus as $i => $nav)
+        {
+            
+            // $this->_ci->db->where('nav_menu_parent_id', $nav['nav_menu_id']);
+            // $nav_child_1 = $this->_ci->db->get('app_nav_menu')->result_array();
+            // $nav_menus[$i]['nav_child_1'] = $nav_child_1;
+            $nav_menus[$i]['nav_child'] = $this->_nav_menu($location_nav, $nav['nav_menu_id']); 
+        }
+        return $nav_menus;
     }
     
     public function _render_admin($view, $data = array(), $return = FALSE)
@@ -112,6 +122,7 @@ class Template
             $this->_data['template_data'][$_tdkey] = $_tdvalue;
             // return $this;
         }
+        $this->_data['template_data']['nav_menu'] = $this->_nav_menu('sidebar_admin_menu');
 
         $this->_data['template_data']['admin_header'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_header', $this->_data, TRUE);
         $this->_data['template_data']['admin_sidebar'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_sidebar', $this->_data, TRUE);
