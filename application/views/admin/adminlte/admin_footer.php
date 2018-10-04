@@ -104,7 +104,7 @@ if (!empty($template_data['js']))
 {
   foreach ($template_data['js']['admin']['footer'] as $jsname => $jsvalue)
   {
-    echo '<script src="'.base_url().$jsvalue.'/'.$jsname.'"></script>';
+    echo '<script src="'.$jsvalue.'/'.$jsname.'"></script>';
   }
 }
 ?>

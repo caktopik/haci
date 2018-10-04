@@ -66,7 +66,7 @@ class Template
         
         if ($cat == 'admin' or $cat == 'public')
         {
-            $value = base_url() .'/'.$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
+            $value = base_url() .$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
             $this->_template_data['css'][$cat][$name] = $value;
             return $this;    
         }
@@ -80,7 +80,7 @@ class Template
 
     public function _set_js($cat, $location, $name, $path)
     {
-        $value = base_url() .'/'.$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
+        $value = base_url() .$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
         if ($cat == 'admin' or $cat == 'public' or $location == 'header' or $location == 'footer')
         {
             $this->_template_data['js'][$cat][$location][$name] = $value;
