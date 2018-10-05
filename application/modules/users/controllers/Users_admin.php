@@ -23,9 +23,19 @@ class Users_admin extends Admin_Controller
         $data['page_title'] = 'Users';
         $data['page_description'] = 'Users List';
 
-        $this->template->_set_js('admin','footer','jquery.dataTables.js','bower_components/datatables.net/js')
-                    ->_set_js('admin','footer','jquery.dataTables.min.js','bower_components/datatables.net/js')
+        $this->template->_set_css('admin','dataTables.bootstrap.min.css','adminlte/bower_components/datatables.net-bs/css')
+                    ->_set_js('admin','footer','jquery.dataTables.min.js','adminlte/bower_components/datatables.net/js')
+                    ->_set_js('admin','footer','dataTables.bootstrap.min.js','adminlte/bower_components/datatables.net-bs/js')
+                    ->_set_js('admin','footer','script.dataTables.js','adminlte/script')
                     ->_render_admin('users_admin', $data);
+    }
+
+    public function tes()
+    {
+        $this->load->library('datatables');
+        echo var_dump($this->datatables->_get_table('users'));
+        
+
     }
 
     

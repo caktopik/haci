@@ -28,7 +28,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   {
     foreach ($template_data['css']['admin'] as $cssname => $cssvalue)
     {
-      echo '<link rel="stylesheet" href="'.$cssvalue.'/'.$cssname.'">';
+      echo '<link rel="stylesheet" href="'.$cssvalue.'">';
     }
   }
   ?>
