@@ -8,9 +8,6 @@
 * @author			Taufik Arief Widodo
 */
 
-define ('ASSETSADMIN', '');
-define ('ASSETSSITE', '');
-
 class Hacilib
 {
     private $_ci; // for calling $this->load, $this->db, etc 

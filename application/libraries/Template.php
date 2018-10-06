@@ -29,6 +29,9 @@ class Template
     protected $_method = "";
     protected $_module = "";
 
+    // get uri segment
+    protected $_uri_segment = array();
+
     public function __construct()
     {
        $this->_ci = &get_instance();
@@ -42,6 +45,7 @@ class Template
        }
        $this->_controller	= $this->_ci->router->fetch_class();
        $this->_method 		= $this->_ci->router->fetch_method();
+       
     }
 
     public function _initialize($_config)
@@ -52,11 +56,33 @@ class Template
             $this->{'_'.$key} = $value;
         }
 
+        for($i = 0; $i<$this->_uri_total_segments(); $i++)
+        {
+            $this->_uri_segment[$i] = $this->_ci->uri->segment($i+1);
+        }
+
         // call load_setting to get configuration from database, if not set on database, data will put from myconfig
         // still going develop for this
 
         $this->_template_data['title_admin_name'] = '';
         $this->_template_data['title_public_name'] = ''; // $this->_data['title_public_name']
+    }
+
+    protected function _uri_total_segments()
+    {
+        return $this->_ci->uri->total_segments();
+    }
+
+    protected function _active_link()
+    {
+        $uri = "";
+        for($i=1; $i< $this->_uri_total_segments(); $i++)
+        {
+            $uri .= $this->_ci->uri->segment($i+1);
+            if($i<$this->_uri_total_segments())continue;
+            $uri .= '/';
+        }
+        return $uri;
     }
 
     public function _set_css($cat, $name, $path)
@@ -94,7 +120,7 @@ class Template
         return $this->_template_data['js'];
     }
 
-    protected function _nav_menu($location_nav, $level = 0)
+    public function _nav_menu($location_nav, $level = 0)
     {
         $this->_ci->load->database();
         
@@ -105,10 +131,14 @@ class Template
         
         foreach($nav_menus as $i => $nav)
         {
-            
-            // $this->_ci->db->where('nav_menu_parent_id', $nav['nav_menu_id']);
-            // $nav_child_1 = $this->_ci->db->get('app_nav_menu')->result_array();
-            // $nav_menus[$i]['nav_child_1'] = $nav_child_1;
+            if ($nav_menus[$i]['nav_menu_link'] === $this->_active_link())
+            {
+                $nav_menus[$i]['active_link'] = 1;
+            }
+            else
+            {
+                $nav_menus[$i]['active_link'] = 0;
+            }
             $nav_menus[$i]['nav_child'] = $this->_nav_menu($location_nav, $nav['nav_menu_id']); 
         }
         return $nav_menus;
@@ -123,7 +153,11 @@ class Template
             // return $this;
         }
         $this->_data['template_data']['nav_menu'] = $this->_nav_menu('sidebar_admin_menu');
-
+        $this->_data['template_data']['total_segments'] = $this->_uri_total_segments();
+        $this->_data['template_data']['uri_segment'] = $this->_uri_segment;
+        $this->_data['template_data']['module'] = $this->_module;
+        $this->_data['template_data']['controller'] = $this->_controller;
+        $this->_data['template_data']['method'] = $this->_method;
         $this->_data['template_data']['admin_header'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_header', $this->_data, TRUE);
         $this->_data['template_data']['admin_sidebar'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_sidebar', $this->_data, TRUE);
         $this->_data['template_data']['admin_content'] = $this->_ci->load->view($view, $this->_data, TRUE);
@@ -135,11 +169,4 @@ class Template
     {
 
     }   
-
-    public function _render_simple($data)
-    {
-        $this->_data = $data;
-        return $this->_ci->load->view('dashboard', $this->_data);
-    }
-
 }

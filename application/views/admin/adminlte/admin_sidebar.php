@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <!-- Sidebar Menu -->
   <ul class="sidebar-menu" data-widget="tree">
-    <li class="header">MAIN NAVIGATION</li>
+    <li class="header">MAIN NAVIGATION<?php echo $template_data['uri_segment'][0].'/'.$template_data['uri_segment'][1]; ?></li>
     <!-- Optionally, you can add icons to the links -->
     <?php 
       foreach($template_data['nav_menu'] as $nav)
@@ -86,14 +86,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
     <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
     <li class="treeview">
-      <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+      <a href="#"><i class="fa fa-link"></i> <span>Router Fetch</span>
         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="#">Link in level 2</a></li>
-        <li><a href="#">Link in level 2</a></li>
+      <li><a href="#"><?php echo 'MO: '.$template_data['module'];  ?></a></li>
+        <li><a href="#"><?php echo 'C: '.$template_data['controller'];  ?></a></li>
+        <li><a href="#"><?php echo 'M: '.$template_data['method']; ?></a></li>
+      </ul>
+    </li>
+    <li class="treeview">
+      <a href="#"><i class="fa fa-link"></i> <span>Uri Segment</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+      </a>
+      <ul class="treeview-menu">
+      <li><a href="#"><?php echo '1: '.$template_data['uri_1'];  ?></a></li>
+        <li><a href="#"><?php echo '2: '.$template_data['uri_2'];  ?></a></li>
+        <li><a href="#"><?php echo '3: '.$template_data['uri 3']; ?></a></li>
       </ul>
     </li>
   </ul>

@@ -107,8 +107,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   </section>
   <!-- /.content -->
-  <script type="text/javascript">
-     var jsonData = <?php echo $datatable_users; ?>
-   </script>
 </div>
 <!-- /.content-wrapper -->

@@ -23,14 +23,16 @@ class Users_admin extends Admin_Controller
         $this->load->library('datatables');
         $data['page_title'] = 'Users';
         $data['page_description'] = 'Users List';
-        $data['datatable_users'] = json_encode($this->datatables->select('username, email, last_login')
-                                                    ->from('users')
-                                                    ->generate());
+        // $data['datatable_users'] = json_encode($this->datatables->select('username, email, last_login')
+        //                                             ->from('users')
+        //                                             ->generate());
         $this->template->_set_css('admin','dataTables.bootstrap.min.css','adminlte/bower_components/datatables.net-bs/css')
                     ->_set_js('admin','footer','jquery.dataTables.min.js','adminlte/bower_components/datatables.net/js')
                     ->_set_js('admin','footer','dataTables.bootstrap.min.js','adminlte/bower_components/datatables.net-bs/js')
                     ->_set_js('admin','footer','ajax.dataTables.js','adminlte/script')
                     ->_render_admin('users_admin', $data);
+
+                    echo print_r($this->template->_nav_menu('sidebar_admin_menu'));
     }
 
     public function json_users()
@@ -40,6 +42,11 @@ class Users_admin extends Admin_Controller
                             ->from('users')
                             ->generate());
         // echo var_dump($this->datatables->_get_table('users'));
+    }
+
+    public function tes()
+    {
+        echo print_r($this->template->_nav_menu('sidebar_admin_menu'));
     }
 
     
