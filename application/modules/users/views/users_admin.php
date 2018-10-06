@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div id="usersTable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
               <!--
               <div class="row">
                 <div class="col-sm-6">
@@ -52,95 +52,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               -->
               <div class="row">
                 <div class="col-sm-12">
-                  <table id="example1" class="table table-bordered table-striped dataTable">
+                  <table id="usersTable" class="table table-bordered table-striped dataTable">
                     <thead>
-                      <tr role="row">
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                        <th>Engine version</th>
-                        <th>CSS grade</th>
+                      <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Last Login</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Firefox 1.0</td>
-                        <td>Win 98+ / OSX.2+</td>
-                        <td>1.7</td>
-                        <td>A</td>
-                      </tr>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Firefox 1.5</td>
-                        <td>Win 98+ / OSX.2+</td>
-                        <td>1.8</td>
-                        <td>A</td>
-                      </tr>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Firefox 2.0</td>
-                        <td>Win 98+ / OSX.2+</td>
-                        <td>1.8</td>
-                        <td>A</td>
-                      </tr>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Firefox 3.0</td>
-                        <td>Win 2k+ / OSX.3+</td>
-                        <td>1.9</td>
-                        <td>A</td>
-                      </tr>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Camino 1.0</td>
-                        <td>OSX.2+</td>
-                        <td>1.8</td>
-                        <td>A</td>
-                      </tr>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Camino 1.5</td>
-                        <td>OSX.3+</td>
-                        <td>1.8</td>
-                        <td>A</td>
-                      </tr>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Netscape 7.2</td>
-                        <td>Win 95+ / Mac OS 8.6-9.2</td>
-                        <td>1.7</td>
-                        <td>A</td>
-                      </tr>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Netscape Browser 8</td>
-                        <td>Win 98SE+</td>
-                        <td>1.7</td>
-                        <td>A</td>
-                      </tr>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Netscape Navigator 9</td>
-                        <td>Win 98+ / OSX.2+</td>
-                        <td>1.8</td>
-                        <td>A</td>
-                      </tr>
-                      <tr>
-                        <td>Gecko</td>
-                        <td>Mozilla 1.0</td>
-                        <td>Win 95+ / OSX.1+</td>
-                        <td>1</td>
-                        <td>A</td>
-                      </tr>
+                      
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                        <th>Engine version</th>
-                        <th>CSS grade</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Last Login</th>    
                       </tr>
                     </tfoot>
                   </table>
@@ -180,5 +107,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   </section>
   <!-- /.content -->
+  <script type="text/javascript">
+     var jsonData = <?php echo $datatable_users; ?>
+   </script>
 </div>
 <!-- /.content-wrapper -->
