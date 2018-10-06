@@ -79,6 +79,7 @@ Credits / Addon
 -  `Ion Auth <https://github.com/benedmunds/CodeIgniter-Ion-Auth/>`_
 -  `HMVC <https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc>`_
 -  `AdminLTE 2.4 <https://adminlte.io/>`_
+-  `DataTables Library <https://github.com/IgnitedDatatables/Ignited-Datatables>`_
 
 ***************
 Donation
