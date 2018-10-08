@@ -32,7 +32,7 @@ class Users_admin extends Admin_Controller
                     ->_set_js('admin','footer','ajax.dataTables.js','adminlte/script')
                     ->_render_admin('users_admin', $data);
 
-                    echo print_r($this->template->_nav_menu('sidebar_admin_menu'));
+                    // echo print_r($this->template->_get_nav_menu('sidebar_admin_menu'));
     }
 
     public function json_users()
@@ -43,11 +43,4 @@ class Users_admin extends Admin_Controller
                             ->generate());
         // echo var_dump($this->datatables->_get_table('users'));
     }
-
-    public function tes()
-    {
-        echo print_r($this->template->_nav_menu('sidebar_admin_menu'));
-    }
-
-    
 }

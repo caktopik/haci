@@ -85,6 +85,12 @@ class Template
         return $uri;
     }
 
+    /**
+     * Adding css in header
+     * @param string $cat
+     * @param string $name
+     * @param string $path
+     */
     public function _set_css($cat, $name, $path)
     {
         // admin-> http://server/assets/$cat/$path/$name.css
@@ -133,17 +139,46 @@ class Template
         {
             if ($nav_menus[$i]['nav_menu_link'] === $this->_active_link())
             {
-                $nav_menus[$i]['active_link'] = 1;
+                $nav_menus[$i]['active_link'] = 'active';
             }
             else
             {
-                $nav_menus[$i]['active_link'] = 0;
+                $nav_menus[$i]['active_link'] = '';
             }
             $nav_menus[$i]['nav_child'] = $this->_nav_menu($location_nav, $nav['nav_menu_id']); 
         }
         return $nav_menus;
     }
+
+    protected function _array_finder($array, $search, $parent_key = false)
+    {
+        foreach ($array as $local_key => $value) {
+            $key = ($parent_key === false) ? $local_key : $parent_key;
+
+            if (is_array($value) and ($subsearch = $this->_array_finder($value, $search, $key)) !== false) {
+                return $subsearch;
+            } elseif ($value == $search) {
+                return $key;
+            }
+        }
+        return false;
+    }
+
+    public function _get_nav_menu($location_nav)
+    {
+        $result_nav_menus = $this->_nav_menu($location_nav);
+        $keyparent = $this->_array_finder($result_nav_menus, 'active');
+        $result_nav_menus[$keyparent]['active_link'] = 'active';
+        return $result_nav_menus;
+    }
     
+    /**
+     * Build view admin
+     * 
+     * @param string $view
+     * @param array $data
+     * @param bool $return
+     */
     public function _render_admin($view, $data = array(), $return = FALSE)
     {
         $this->_data = $data;
@@ -152,7 +187,7 @@ class Template
             $this->_data['template_data'][$_tdkey] = $_tdvalue;
             // return $this;
         }
-        $this->_data['template_data']['nav_menu'] = $this->_nav_menu('sidebar_admin_menu');
+        $this->_data['template_data']['nav_menu'] = $this->_get_nav_menu('sidebar_admin_menu');
         $this->_data['template_data']['total_segments'] = $this->_uri_total_segments();
         $this->_data['template_data']['uri_segment'] = $this->_uri_segment;
         $this->_data['template_data']['module'] = $this->_module;
