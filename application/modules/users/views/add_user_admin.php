@@ -17,7 +17,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <!-- Main content -->
   <section class="content">
-    
+  <?php
+  echo print_r($template_data['uri_segment']);
+  echo '<br/>';
+  echo $template_data['module'];
+  echo '<br/>';
+  echo $template_data['controller'];
+  echo '<br/>';
+  echo $template_data['method'];
+  echo '<br/>';
+  echo $template_data['active_link'];
+  ?>
     <!--------------------------
       | Your Page Content Here |
       -------------------------->

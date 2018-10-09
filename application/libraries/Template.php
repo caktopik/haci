@@ -5,7 +5,7 @@
 * 
 * @package          CodeIgniter
 * @subpackage       Libraries
-* @author	        Taufik Arief Widodo
+* @author           Taufik Arief Widodo
 */
 
 class Template
@@ -73,13 +73,13 @@ class Template
         return $this->_ci->uri->total_segments();
     }
 
-    protected function _active_link()
+    public function _active_link()
     {
         $uri = "";
         for($i=1; $i< $this->_uri_total_segments(); $i++)
         {
             $uri .= $this->_ci->uri->segment($i+1);
-            if($i<$this->_uri_total_segments())continue;
+            if($i == $this->_uri_total_segments()-1)continue;
             $uri .= '/';
         }
         return $uri;
@@ -208,6 +208,7 @@ class Template
             $this->_data['template_data'][$_tdkey] = $_tdvalue;
             // return $this;
         }
+        $this->_data['template_data']['active_link'] = $this->_active_link();
         $this->_data['template_data']['nav_menu'] = $this->_get_nav_menu('sidebar_admin_menu');
         $this->_data['template_data']['total_segments'] = $this->_uri_total_segments();
         $this->_data['template_data']['uri_segment'] = $this->_uri_segment;

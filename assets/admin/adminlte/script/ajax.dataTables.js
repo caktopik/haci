@@ -6,7 +6,7 @@ $(function () {
     "serverSide"  : true,
     "order"       : [],
     "ajax"        : {
-      "url"   : document.URL +'/json_users',
+      "url"   : window.location.origin + window.location.pathname +'/json_users',
       "type"  : 'POST'
     },
     "paging"      : true,
