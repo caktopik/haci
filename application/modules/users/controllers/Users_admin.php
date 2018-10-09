@@ -26,13 +26,22 @@ class Users_admin extends Admin_Controller
         // $data['datatable_users'] = json_encode($this->datatables->select('username, email, last_login')
         //                                             ->from('users')
         //                                             ->generate());
+        // echo print_r($this->template->_get_nav_menu('sidebar_admin_menu'));
         $this->template->_set_css('admin','dataTables.bootstrap.min.css','adminlte/bower_components/datatables.net-bs/css')
                     ->_set_js('admin','footer','jquery.dataTables.min.js','adminlte/bower_components/datatables.net/js')
                     ->_set_js('admin','footer','dataTables.bootstrap.min.js','adminlte/bower_components/datatables.net-bs/js')
                     ->_set_js('admin','footer','ajax.dataTables.js','adminlte/script')
                     ->_render_admin('users_admin', $data);
 
-                    // echo print_r($this->template->_get_nav_menu('sidebar_admin_menu'));
+
+    }
+
+    public function add()
+    {
+        $data['page_title'] = 'Add User';
+        $data['page_description'] = 'Form Add User';
+        $this->template->_render_admin('add_user_admin', $data);
+
     }
 
     public function json_users()

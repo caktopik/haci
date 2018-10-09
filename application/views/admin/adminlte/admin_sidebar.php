@@ -40,17 +40,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       {
         if(empty($nav['nav_child']))
         {
-          echo '<li class="'.$nav['active_link'].'"><a href="'.$nav['nav_menu_link'].'"><i class="'.$nav['nav_menu_icon'].'"></i> <span>'.$nav['nav_menu_name'].'</span></a></li>' .PHP_EOL;
+          echo '<li class="'.$nav['active_link'].'"><a href="'.site_url('admin/'.$nav['nav_menu_link']).'"><i class="'.$nav['nav_menu_icon'].'"></i> <span>'.$nav['nav_menu_name'].'</span></a></li>' .PHP_EOL;
         }
         else
         {
-          echo '<li class="treeview '.$nav['active_link'].'"><a href="'.$nav['nav_menu_link'].'"><i class="'.$nav['nav_menu_icon'].'"></i> <span>'.$nav['nav_menu_name'].'</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>' .PHP_EOL;
+          echo '<li class="treeview '.$nav['active_link'].'"><a href="'.site_url('admin/'.$nav['nav_menu_link']).'"><i class="'.$nav['nav_menu_icon'].'"></i> <span>'.$nav['nav_menu_name'].'</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>' .PHP_EOL;
           echo '<ul class="treeview-menu">'.PHP_EOL;
           foreach($nav['nav_child'] as $nc1)
           {
             if(empty($nc1['nav_child']))
             {
-              echo '<li class="'.$nc1['active_link'].'"><a href="'.$nc1['nav_menu_link'].'"><i class="'.$nc1['nav_menu_icon'].'"></i> <span>'.$nc1['nav_menu_name'].'</span></a></li>'.PHP_EOL;
+              echo '<li class="'.$nc1['active_link'].'"><a href="'.site_url('admin/'.$nc1['nav_menu_link']).'"><i class="'.$nc1['nav_menu_icon'].'"></i> <span>'.$nc1['nav_menu_name'].'</span></a></li>'.PHP_EOL;
             }
             else
             {
@@ -83,37 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
       } 
     ?>
-    <li class=""><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-    <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-    <li class="treeview">
-      <a href="#"><i class="fa fa-link"></i> <span>Router Fetch</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-      </a>
-      <ul class="treeview-menu">
-      <li><a href="#"><?php echo 'MO: '.$template_data['module'];  ?></a></li>
-        <li><a href="#"><?php echo 'C: '.$template_data['controller'];  ?></a></li>
-        <li><a href="#"><?php echo 'M: '.$template_data['method']; ?></a></li>
-      </ul>
-    </li>
-    <li class="treeview">
-      <a href="#"><i class="fa fa-link"></i> <span>Uri Segment</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-      </a>
-      <ul class="treeview-menu">
-      <?php foreach($template_data['uri_segment'] as $us)
-      {
-        $i = 0;
-        echo '<li><a href="#"> '.$i.': '.$us.  '</a></li>';
-        $i = $i+1;
-        //$i=+1;
-      }
-      ?>
-      </ul>
-    </li>
+    
   </ul>
   <!-- /.sidebar-menu -->
 </section>

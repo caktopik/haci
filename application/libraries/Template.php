@@ -86,23 +86,21 @@ class Template
     }
 
     /**
-     * Adding css in header
+     * Adding new CSS file in header template
+     * 
      * @param string $cat
      * @param string $name
      * @param string $path
+     * @return mixed
      */
     public function _set_css($cat, $name, $path)
-    {
-        // admin-> http://server/assets/$cat/$path/$name.css
-        // public-> http://server/assets/$cat/$path/$name.css
-        
+    {   
         if ($cat == 'admin' or $cat == 'public')
         {
             $value = base_url() .$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
             $this->_template_data['css'][$cat][$name] = $value;
             return $this;    
         }
-        // return $this;
     }
 
     public function _get_css()
@@ -110,6 +108,15 @@ class Template
         return $this->_template_data['css'];
     }
 
+    /**
+     * Adding new javascript file in footer or header template
+     * 
+     * @param string $cat
+     * @param string $location
+     * @param string $name
+     * @param string $path
+     * @return mixed
+     */
     public function _set_js($cat, $location, $name, $path)
     {
         $value = base_url() .$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
@@ -118,7 +125,6 @@ class Template
             $this->_template_data['js'][$cat][$location][$name] = $value;
             return $this;
         }
-        // return $this;
     }
 
     public function _get_js()
@@ -150,6 +156,14 @@ class Template
         return $nav_menus;
     }
 
+    /**
+     * Looking for parent hierarchy array
+     * 
+     * @param array $array
+     * @param string $search
+     * @param bool $parent_key
+     * @return array 
+     */
     protected function _array_finder($array, $search, $parent_key = false)
     {
         foreach ($array as $local_key => $value) {
@@ -164,6 +178,12 @@ class Template
         return false;
     }
 
+    /**
+     * Build navigation with active link
+     * 
+     * @param string $location_nav
+     * @return array 
+     */
     public function _get_nav_menu($location_nav)
     {
         $result_nav_menus = $this->_nav_menu($location_nav);
@@ -178,6 +198,7 @@ class Template
      * @param string $view
      * @param array $data
      * @param bool $return
+     * @return mixed
      */
     public function _render_admin($view, $data = array(), $return = FALSE)
     {

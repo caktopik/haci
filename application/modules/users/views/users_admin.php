@@ -18,11 +18,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Main content -->
   <section class="content">
     <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <div class="box-header">
+            <h3 class="box-title">Tools</h3>
+          </div>     
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div class="col-xs-6">
+              <a class="btn btn-app bg-olive" href="<?php echo site_url('admin/users/add'); ?>">
+                <i class="fa fa-user-plus"></i> Add / Create
+              </a>
+            </div>
+            <div class="col-xs-6">
+              <a class="btn btn-app pull-right bg-maroon" href="#">
+                <i class="fa fa-download"></i> Excel
+              </a>
+              <a class="btn btn-app pull-right bg-maroon" href="#">
+                <i class="fa fa-download"></i> CSV
+              </a>
+              <a class="btn btn-app pull-right bg-maroon" href="#">
+                <i class="fa fa-download"></i> PDF
+              </a>
+            </div>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
       <!-- DataTables start here -->
       <div class="col-xs-12">
-        <div class="box">
+        <div class="box box-success">
           <div class="box-header">
-            <h3 class="box-title">Data Table With Full Features</h3>
+            <h3 class="box-title">Table: Users</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
