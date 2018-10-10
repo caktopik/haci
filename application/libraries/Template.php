@@ -115,15 +115,28 @@ class Template
      * @param string $location
      * @param string $name
      * @param string $path
+     * @param bool $external
      * @return mixed
      */
-    public function _set_js($cat, $location, $name, $path)
+    public function _set_js($cat, $location, $name, $path, $external = FALSE)
     {
-        $value = base_url() .$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
-        if ($cat == 'admin' or $cat == 'public' or $location == 'header' or $location == 'footer')
+        if (!$external)
         {
-            $this->_template_data['js'][$cat][$location][$name] = $value;
-            return $this;
+            $value = base_url() .$this->_assets_folder.'/'.$cat.'/'.$path.'/'.$name;
+            if ($cat == 'admin' or $cat == 'public' or $location == 'header' or $location == 'footer')
+            {
+                $this->_template_data['js'][$cat][$location][$name] = $value;
+                return $this;
+            }
+        }
+        else
+        {
+            $value = $path.'/'.$name;
+            if ($cat == 'admin' or $cat == 'public' or $location == 'header' or $location == 'footer')
+            {
+                $this->_template_data['js'][$cat][$location][$name] = $value;
+                return $this;
+            }
         }
     }
 

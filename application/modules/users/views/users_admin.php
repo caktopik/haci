@@ -92,7 +92,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </tr>
                     </thead>
                     <tbody>
-                      
+                    <?php 
+                    foreach ($dt_users as $dt)
+                    {
+                      echo '<tr>' .PHP_EOL;
+                        echo '<td>'.$dt['username'].'</td>' .PHP_EOL;
+                        echo '<td>'.$dt['email'].'</td>' .PHP_EOL;
+                        echo '<td>'.date("Y-m-d H:i:s",$dt['last_login']).'</td>' .PHP_EOL;
+                      echo '</tr>' .PHP_EOL;
+                    }
+                     ?>
                     </tbody>
                     <tfoot>
                       <tr>
