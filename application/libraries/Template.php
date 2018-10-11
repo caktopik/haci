@@ -212,6 +212,15 @@ class Template
         }
         return $result_nav_menus;
     }
+
+    /**
+     * Build breadcrumb
+     * 
+     * @param string $location admin | public
+     * @return mixed
+     */
+    public function _breadcrumb()
+    {}
     
     /**
      * Build view admin

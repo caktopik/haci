@@ -18,19 +18,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Main content -->
   <section class="content">
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-sm-12">
         <div class="box box-primary">
           <div class="box-header">
             <h3 class="box-title">Tools</h3>
           </div>     
           <!-- /.box-header -->
           <div class="box-body">
-            <div class="col-xs-6">
+            <div class="col-sm-6">
               <a class="btn btn-app bg-olive" href="<?php echo site_url('admin/users/add'); ?>">
                 <i class="fa fa-user-plus"></i> Add / Create
               </a>
             </div>
-            <div class="col-xs-6">
+            <div class="col-sm-6">
               <a class="btn btn-app pull-right bg-maroon" href="#">
                 <i class="fa fa-download"></i> Excel
               </a>
@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.row -->
     <div class="row">
       <!-- DataTables start here -->
-      <div class="col-xs-12">
+      <div class="col-sm-12">
         <div class="box box-success">
           <div class="box-header">
             <h3 class="box-title">Table: Users</h3>
@@ -58,29 +58,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- /.box-header -->
           <div class="box-body">
             <div id="usersTable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-              <!--
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="dataTables_length" id="example1_length">
-                    <label>Show 
-                      <select name="example1_length" aria-controls="example1" class="form-control input-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                      </select> entries
-                    </label>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div id="example1_filter" class="dataTables_filter">
-                    <label>Search:
-                      <input class="form-control input-sm" placeholder="" aria-controls="example1" type="search">
-                    </label>
-                  </div>
-                </div>
-              </div>
-              -->
               <div class="row">
                 <div class="col-sm-12">
                   <table id="usersTable" class="table table-bordered table-striped dataTable">
@@ -100,11 +77,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         echo '<td>'.$dt['username'].'</td>' .PHP_EOL;
                         echo '<td>'.$dt['email'].'</td>' .PHP_EOL;
                         echo '<td>'.date("Y-m-d H:i:s",$dt['last_login']).'</td>' .PHP_EOL;
-                        echo '<td>
-                        <a href="'.site_url('admin/users/view/'.$dt['id']).'" data-skin="skin-blue" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>
-                        <a href="'.site_url('admin/users/edit/'.$dt['id']).'" data-skin="skin-green" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
-                        <a href="'.site_url('admin/users/delete/'.$dt['id']).'" data-skin="skin-red" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
-                        </td>';
+                        echo '<td>'.PHP_EOL.'
+                        <a href="'.site_url('admin/users/view/'.$dt['id']).'" data-skin="skin-blue" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>'.PHP_EOL.'
+                        <a href="'.site_url('admin/users/edit/'.$dt['id']).'" data-skin="skin-green" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>'.PHP_EOL.'
+                        <a href="'.site_url('admin/users/delete/'.$dt['id']).'" data-skin="skin-red" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>'.PHP_EOL.'
+                        </td>'.PHP_EOL;
                       echo '</tr>' .PHP_EOL;
                     }
                      ?>

@@ -10,7 +10,7 @@ class Users_model extends CI_Model
     
     public function _read($id)
     {
-        $this->db->get_where('users', 'id = '.$id)->result_array();
+        return $this->db->get_where('users', array('id' => $id))->row_array();
     }
     
     public function _update()
