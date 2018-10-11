@@ -89,6 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>Username</th>
                         <th>Email</th>
                         <th>Last Login</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -99,6 +100,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         echo '<td>'.$dt['username'].'</td>' .PHP_EOL;
                         echo '<td>'.$dt['email'].'</td>' .PHP_EOL;
                         echo '<td>'.date("Y-m-d H:i:s",$dt['last_login']).'</td>' .PHP_EOL;
+                        echo '<td>
+                        <a href="'.site_url('admin/users/view/'.$dt['id']).'" data-skin="skin-blue" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>
+                        <a href="'.site_url('admin/users/edit/'.$dt['id']).'" data-skin="skin-green" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                        <a href="'.site_url('admin/users/delete/'.$dt['id']).'" data-skin="skin-red" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                        </td>';
                       echo '</tr>' .PHP_EOL;
                     }
                      ?>
@@ -107,7 +113,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <tr>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Last Login</th>    
+                        <th>Last Login</th>
+                        <th>Action</th>    
                       </tr>
                     </tfoot>
                   </table>

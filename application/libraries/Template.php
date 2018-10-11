@@ -201,7 +201,15 @@ class Template
     {
         $result_nav_menus = $this->_nav_menu($location_nav);
         $keyparent = $this->_array_finder($result_nav_menus, 'active');
-        $result_nav_menus[$keyparent]['active_link'] = 'active';
+        if($result_nav_menus[$keyparent]['nav_menu_module'] === $this->_module)
+        {
+            $result_nav_menus[$keyparent]['active_link'] = 'active';
+        }
+        else
+        {
+            $keymodule = $this->_array_finder($result_nav_menus, $this->_module);
+            $result_nav_menus[$keymodule]['active_link'] = 'active';
+        }
         return $result_nav_menus;
     }
     

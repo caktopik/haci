@@ -48,10 +48,19 @@ class Users_admin extends Admin_Controller
         $this->template->_render_admin('add_user_admin', $data);
     }
 
+    public function view($id)
+    {
+        $data['page_title'] = 'Edit User';
+        $data['page_description'] = 'Form Edit User';
+        $data['dt_users'] = $this->users_model->_read($id);
+        $this->template->_render_admin('view_user_admin', $data);
+    }
+
     public function edit($id)
     {
         $data['page_title'] = 'Edit User';
         $data['page_description'] = 'Form Edit User';
+        $data['dt_users'] = $this->users_model->_read($id);
         $this->template->_render_admin('edit_user_admin', $data);
     }
 
