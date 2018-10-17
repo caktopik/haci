@@ -13,9 +13,18 @@ class Users_model extends CI_Model
         return $this->db->get_where('users', array('id' => $id))->row_array();
     }
     
-    public function _update()
+    public function _update($table = 'users', $id, $data = array())
     {
-
+        if($id == "" && empty($data))
+        {
+            return false;
+        }
+        else
+        {
+            $this->db->where('id', $id);
+            $this->db->update($table, $data);    
+            return true;
+        }
     }
 
     public function _delete()

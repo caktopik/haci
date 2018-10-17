@@ -7,7 +7,7 @@ class Users_admin extends Admin_Controller
     {
         parent::__construct();
         $this->load->model('users_model');
-        $this->load->library('template');
+        $this->load->library(array('template', 'form_validation'));
         // $this->load->library('database');
         $this->load->helper('adminlte_helper');
 
@@ -38,7 +38,7 @@ class Users_admin extends Admin_Controller
                     ->_set_js('admin','footer','vfs_fonts.js','https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36', TRUE)
                     ->_set_js('admin','footer','buttons.html5.min.js','https://cdn.datatables.net/buttons/1.5.2/js', TRUE)
                     ->_set_js('admin','footer','buttons.print.min.js','https://cdn.datatables.net/buttons/1.5.2/js', TRUE)
-                    ->_render_admin('users_admin', $data);
+                    ->_render_admin('index_user_admin', $data);
     }
 
     public function add()
@@ -58,6 +58,7 @@ class Users_admin extends Admin_Controller
 
     public function edit($id)
     {
+        $this->load->helper(array('form'));
         $data['page_title'] = 'Edit User';
         $data['page_description'] = 'Form Edit User';
         $data['dt_users'] = $this->users_model->_read($id);
@@ -67,6 +68,12 @@ class Users_admin extends Admin_Controller
     public function delete($id)
     {
         redirect('admin/users');
+    }
+
+    public function save($id = "")
+    {
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
     }
 
     // public function json_users()

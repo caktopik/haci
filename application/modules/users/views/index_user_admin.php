@@ -20,8 +20,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="row">
       <div class="col-sm-12">
         <div class="box box-primary">
-          <div class="box-header">
+          <div class="box-header with-border">
             <h3 class="box-title">Tools</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            </div>
           </div>     
           <!-- /.box-header -->
           <div class="box-body">
@@ -52,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- DataTables start here -->
       <div class="col-sm-12">
         <div class="box box-success">
-          <div class="box-header">
+          <div class="box-header with-border">
             <h3 class="box-title">Table: Users</h3>
           </div>
           <!-- /.box-header -->
