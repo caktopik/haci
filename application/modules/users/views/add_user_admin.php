@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <label class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-8">
-                  <input name="name" class="form-control" id="input-email" placeholder="Email" type="email">
+                  <input name="email" class="form-control" id="input-email" placeholder="Email" type="email">
                 </div>
                 <div class="col-sm-1">
                   

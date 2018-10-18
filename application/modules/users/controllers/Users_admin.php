@@ -70,10 +70,36 @@ class Users_admin extends Admin_Controller
         redirect('admin/users');
     }
 
-    public function save($id = "")
+    public function save()
     {
+        $id = $this->input->post('id');
+
+        $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+        if(!empty($id))
+        {
+            $this->form_validation->set_rules('password', 'Password', 'required');
+        }
+        $this->form_validation->set_rules('first_name', 'First Name', 'required');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required');
+        $this->form_validation->set_rules('company', 'Company', 'required');
+        $this->form_validation->set_rules('phone', 'Phone', 'required');
+
+        if ($this->form_validation->run() === TRUE)
+        {
+            if(!empty($id))
+            {
+                
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+            // error message
+        } 
     }
 
     // public function json_users()
