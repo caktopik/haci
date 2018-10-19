@@ -41,6 +41,7 @@ class Auth extends Public_Controller
                 'id' => 'password',
                 'class' => 'form-control',
 				'type' => 'password',
+				'placeholder' => 'Password',
 			);
             $this->load->view('login', $this->data, FALSE);        
         }
@@ -55,9 +56,11 @@ class Auth extends Public_Controller
 		{
 			// check to see if the user is logging in
 			// check for "remember me"
+			$email = $this->input->post('email');
+			$password = $this->input->post('password');
 			$remember = (bool)$this->input->post('remember');
 
-			if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
+			if ($this->ion_auth->login($email, $password, $remember))
 			{
 				//if the login is successful
 				//redirect them back to the home page
@@ -69,7 +72,7 @@ class Auth extends Public_Controller
 				// if the login was un-successful
 				// redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
+				redirect('auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else
@@ -88,6 +91,7 @@ class Auth extends Public_Controller
                 'id' => 'password',
                 'class' => 'form-control',
 				'type' => 'password',
+				'placeholder' => 'Passowrd',
 			);
 			$this->load->view('login', $this->data, FALSE);   
         }

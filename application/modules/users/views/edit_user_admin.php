@@ -197,7 +197,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!--------------------------
       | Your Page Content Here |
       -------------------------->
-
+    
   </section>
   <!-- /.content -->
 </div>

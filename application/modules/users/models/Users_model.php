@@ -3,33 +3,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users_model extends CI_Model
 {
-    public function _create()
+    public function _create($data = array(), $table = 'users')
     {
-
+        $this->db->insert($table, $data);
     }
     
-    public function _read($id)
+    public function _read($id, $table = 'users')
     {
-        return $this->db->get_where('users', array('id' => $id))->row_array();
+        return $this->db->get_where($table, array('id' => $id))->row_array();
     }
     
-    public function _update($table = 'users', $id, $data = array())
+    public function _update($id, $data = array(), $table = 'users')
     {
-        if($id == "" && empty($data))
-        {
-            return false;
-        }
-        else
+        if(!empty($id) and !empty($data))
         {
             $this->db->where('id', $id);
             $this->db->update($table, $data);    
-            return true;
-        }
+        }  
     }
 
-    public function _delete()
+    public function _delete($id, $table = 'users')
     {
-        
+        $this->db->where('id', $id);
+        $this->db->delete($table);
     }
 
     public function _datatable_index()
