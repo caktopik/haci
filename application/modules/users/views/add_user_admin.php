@@ -17,18 +17,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <!-- Main content -->
   <section class="content">
-    <?php (!empty($message)) ? '
+    <?php if(!empty($message))
+    {
+    ?> 
     <div class="alert alert-danger alert-dismissible">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      <h4><i class="icon fa fa-ban"></i> Alert!</h4> '
-      . $message . '
-    </div>' : ''; ?>
+      <h4><i class="icon fa fa-ban"></i> Alert!</h4> 
+      <?php echo $message; ?>
+    </div>
+    <?php } ?>
     <!-- /.alert -->
     <div class="row">
       <div class="col-sm-12">
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Tools</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            </div>
           </div>     
           <!-- /.box-header -->
           <div class="box-body">
@@ -41,9 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </a>
             </div>
             <div class="col-sm-6">
-              <a class="btn btn-app pull-right bg-maroon" href="<?php echo site_url('admin/users/save'); ?>">
-                <i class="fa fa-download"></i> Save
-              </a>            
+                         
             </div>
           </div>
           <!-- /.box-body -->

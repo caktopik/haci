@@ -24,8 +24,16 @@ class Users_model extends CI_Model
 
     public function _delete($id, $table = 'users')
     {
-        $this->db->where('id', $id);
-        $this->db->delete($table);
+        if(!empty($id))
+        {
+            $this->db->where('id', $id);
+            $this->db->delete($table);
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 
     public function _datatable_index()

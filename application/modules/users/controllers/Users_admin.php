@@ -25,6 +25,7 @@ class Users_admin extends Admin_Controller
         $this->load->library('datatables');
         $data['page_title'] = 'Users';
         $data['page_description'] = 'Users List';
+        $data['message'] = $this->session->flashdata('message');
         $data['dt_users'] = $this->users_model->_datatable_index();
         $this->template->_set_css('admin','dataTables.bootstrap.min.css','adminlte/bower_components/datatables.net-bs/css')
                     ->_set_js('admin','footer','jquery.dataTables.min.js','adminlte/bower_components/datatables.net/js')
@@ -68,7 +69,15 @@ class Users_admin extends Admin_Controller
 
     public function delete($id)
     {
-        redirect('admin/users');
+        if($this->users_model->_delete($id))
+        {
+            $this->session->set_flashdata('message', 'Delete user success!');
+        }
+        else
+        {
+            $this->session->set_flashdata('message', 'Something error!');
+        }
+        redirect('admin/users', 'refresh');
     }
 
     public function save()
@@ -121,7 +130,7 @@ class Users_admin extends Admin_Controller
                 else
                 {
                     // unsuccessful register
-                    $this->session->set_flashdata('message', 'Something has error or username has been used');
+                    $this->session->set_flashdata('message', $this->ion_auth->errors());
                     redirect('admin/users/add', 'refresh');
                 }
             }
