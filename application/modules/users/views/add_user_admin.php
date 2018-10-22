@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.row -->
     <div class="row">
       <div class="col-sm-12">
-        <?php echo form_open('admin/users/save'); ?>
+        <?php echo form_open('admin/users/add'); ?>
         <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Form</h3>
@@ -68,65 +68,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="box-body">
           
             <div class="form-horizontal">
-              <div class="form-group hidden">
-                <div class="col-sm-1">
-                  
-                </div>
-                <label class="col-sm-2 control-label">Id</label>
-                <div class="col-sm-8">
-                  <input name="id" class="form-control" id="input-id" placeholder="Username" type="text">
-                </div>
-                <div class="col-sm-1">
-                  
-                </div>
-              </div>
-              <!-- /.form-group -->
-              <div class="form-group">
-                <div class="col-sm-1">
-                  
-                </div>
-                <label class="col-sm-2 control-label">Username</label>
-                <div class="col-sm-8">
-                  <input name="username" class="form-control" id="input-username" placeholder="Username" type="text">
-                </div>
-                <div class="col-sm-1">
-                  
-                </div>
-              </div>
-              <!-- /.form-group -->
-              <div class="form-group">
-                <div class="col-sm-1">
-                  
-                </div>
-                <label class="col-sm-2 control-label">Email</label>
-                <div class="col-sm-8">
-                  <input name="email" class="form-control" id="input-email" placeholder="Email" type="email">
-                </div>
-                <div class="col-sm-1">
-                  
-                </div>
-              </div>
-              <!-- /.form-group -->
-              <div class="form-group">
-                <div class="col-sm-1">
-                  
-                </div>
-                <label class="col-sm-2 control-label">Password</label>
-                <div class="col-sm-8">
-                  <input name="password" class="form-control" id="input-password" placeholder="Password" type="password">
-                </div>
-                <div class="col-sm-1">
-                  
-                </div>
-              </div>
-              <!-- /.form-group -->
               <div class="form-group">
                 <div class="col-sm-1">
                   
                 </div>
                 <label class="col-sm-2 control-label">First Name</label>
                 <div class="col-sm-8">
-                  <input name="first_name" class="form-control" id="input-first-name" placeholder="First Name" type="text">
+                  <!-- <input name="first_name" class="form-control" id="input-first-name" placeholder="First Name" type="text"> -->
+                  <?php echo form_input($form['first_name']);?>
                 </div>
                 <div class="col-sm-1">
                   
@@ -139,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <label class="col-sm-2 control-label">Last Name</label>
                 <div class="col-sm-8">
-                  <input name="last_name" class="form-control" id="input-last-name" placeholder="Last Name" type="text">
+                  <?php echo form_input($form['last_name']);?>
                 </div>
                 <div class="col-sm-1">
                   
@@ -152,7 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <label class="col-sm-2 control-label">Company</label>
                 <div class="col-sm-8">
-                  <input name="company" class="form-control" id="input-company" placeholder="Company Name" type="text">
+                  <?php echo form_input($form['company']);?>
                 </div>
                 <div class="col-sm-1">
                   
@@ -165,13 +114,74 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <label class="col-sm-2 control-label">Phone</label>
                 <div class="col-sm-8">
-                  <input name="phone" class="form-control" id="input-phone" placeholder="Phone" type="text">
+                  <?php echo form_input($form['phone']);?>
                 </div>
                 <div class="col-sm-1">
                   
                 </div>
               </div>
               <!-- /.form-group -->
+              <?php
+                if($form['identity_column']!=='email') 
+                {
+              ?>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  
+                </div>
+                <label class="col-sm-2 control-label">Identity</label>
+                <div class="col-sm-8">
+                  <?php echo form_error('identity'); ?>
+                  <?php echo form_input($identity); ?>
+                </div>
+                <div class="col-sm-1">
+                  
+                </div>
+              </div>
+              <!-- /.form-group -->
+              <?php
+                }
+              ?>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  
+                </div>
+                <label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-8">
+                  <?php echo form_input($form['email']);?>
+                </div>
+                <div class="col-sm-1">
+                  
+                </div>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <div class="col-sm-1">
+                  
+                </div>
+                <label class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-8">
+                  <?php echo form_input($form['password']);?>
+                </div>
+                <div class="col-sm-1">
+                  
+                </div>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <div class="col-sm-1">
+                  
+                </div>
+                <label class="col-sm-2 control-label">Password Confirm</label>
+                <div class="col-sm-8">
+                  <?php echo form_input($form['password_confirm']);?>
+                </div>
+                <div class="col-sm-1">
+                  
+                </div>
+              </div>
+              <!-- /.form-group -->
+
             </div>
             <!-- /.form-horizontal -->
   
@@ -184,7 +194,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="col-sm-8">
               <button type="submit" class="btn btn-info">Save</button>
-
             </div>
             
             <div class="col-sm-1">

@@ -78,7 +78,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <table id="usersTable" class="table table-bordered table-striped dataTable">
                     <thead>
                       <tr>
-                        <th>Username</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Company</th>
+                        <th>Phone</th>
                         <th>Email</th>
                         <th>Last Login</th>
                         <th>Action</th>
@@ -89,7 +92,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     foreach ($dt_users as $dt)
                     {
                       echo '<tr>' .PHP_EOL;
-                        echo '<td>'.$dt['username'].'</td>' .PHP_EOL;
+                        echo '<td>'.$dt['first_name'].'</td>' .PHP_EOL;
+                        echo '<td>'.$dt['last_name'].'</td>' .PHP_EOL;
+                        echo '<td>'.$dt['company'].'</td>' .PHP_EOL;
+                        echo '<td>'.$dt['phone'].'</td>' .PHP_EOL;
                         echo '<td>'.$dt['email'].'</td>' .PHP_EOL;
                         echo '<td>'.date("Y-m-d H:i:s",$dt['last_login']).'</td>' .PHP_EOL;
                         echo '<td>'.PHP_EOL.'
@@ -103,7 +109,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th>Username</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Company</th>
+                        <th>Phone</th>
                         <th>Email</th>
                         <th>Last Login</th>
                         <th>Action</th>    
