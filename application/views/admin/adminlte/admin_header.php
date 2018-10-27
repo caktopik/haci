@@ -189,7 +189,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="<?php echo base_url(); ?>assets/admin/adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"><?php echo $session_data['first_name'] . ' ' . $session_data['last_name']; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -197,8 +197,8 @@ desired effect
                 <img src="<?php echo base_url(); ?>assets/admin/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  <?php echo $session_data['first_name'] . ' ' . $session_data['last_name']; ?> - Web Developer
+                  <small>Member since <?php echo date('M. Y',$session_data['created_on']); ?></small>
                 </p>
               </li>
               <!-- Menu Body -->

@@ -20,7 +20,8 @@ class Users_admin extends Admin_Controller
         $this->lang->load('auth');
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
-        if(!$this->ion_auth->logged_in())
+        // users can access by admin
+        if(!$this->ion_auth->logged_in() or !$this->ion_auth->is_admin())
         {
              redirect('auth', 'refresh');
         }
@@ -50,11 +51,12 @@ class Users_admin extends Admin_Controller
 
     public function add()
     {
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+        /* 
+        if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
 			redirect('auth', 'refresh');
 		}
-
+        */
 		$tables = $this->config->item('tables', 'ion_auth');
 		$identity_column = $this->config->item('identity', 'ion_auth');
 		$data['form']['identity_column'] = $identity_column;
@@ -199,6 +201,9 @@ class Users_admin extends Admin_Controller
 		$this->form_validation->set_rules('phone', 'Phone', 'trim|required');
 		$this->form_validation->set_rules('company', 'Company', 'trim|required');
 
+        $identity_column = $this->config->item('identity', 'ion_auth');
+        $data['form']['identity_column'] = $identity_column;
+        
 		if (isset($_POST) && !empty($_POST))
 		{
 			// do we have a valid request?
@@ -266,7 +271,7 @@ class Users_admin extends Admin_Controller
 
 			}
 		}
-
+        
 		// display the edit user form
 		$data['form']['csrf'] = $this->_get_csrf_nonce();
 
@@ -278,7 +283,15 @@ class Users_admin extends Admin_Controller
 		$data['form']['groups'] = $groups;
 		$data['form']['currentGroups'] = $currentGroups;
 
-		$data['form']['first_name'] = array(
+        $data['form']['id'] = array(
+            'name' => 'id',
+            'id' => 'input-id',
+            'class' => 'form-control',
+            'type' => 'text',
+            'placeholder' => 'Id',
+            'value' => $this->form_validation->set_value('id', $user->id),
+        );
+        $data['form']['first_name'] = array(
             'name' => 'first_name',
             'id' => 'input-first-name',
             'class' => 'form-control',
@@ -300,7 +313,7 @@ class Users_admin extends Admin_Controller
             'class' => 'form-control',
             'type' => 'text',
             'placeholder' => 'Identity',
-            'value' => $this->form_validation->set_value('identity', $user->identity),
+            'value' => $this->form_validation->set_value('identity', $user->{$identity_column}),
         );
         $data['form']['email'] = array(
             'name' => 'email',
@@ -342,8 +355,7 @@ class Users_admin extends Admin_Controller
         );
 
 		// $this->_render_page('authx' . DIRECTORY_SEPARATOR . 'edit_user', $this->data);
-        // my own
-        $this->load->helper(array('form'));
+        
         $data['page_title'] = 'Edit User';
         $data['page_description'] = 'Form Edit User';
         // $data['dt_users'] = $this->users_model->_read($id);
@@ -363,83 +375,7 @@ class Users_admin extends Admin_Controller
         redirect('admin'. DIRECTORY_SEPARATOR .'users', 'refresh');
     }
 
-    public function save()
-    {
-        if($this->input->post('id'))
-        {
-            $id = $this->input->post('id');
-        }
-
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
-        if(empty($id) && ($this->input->post('password') || $this->input->post('password_confirm')))
-        {
-            $this->form_validation->set_rules('password', 'Password', 'required | matches[password_confirm]');
-            $this->form_validation->set_rules('password_confirm', 'Password Confirm', 'required');
-        }
-        $this->form_validation->set_rules('first_name', 'First Name', 'required');
-        $this->form_validation->set_rules('last_name', 'Last Name', 'required');
-        $this->form_validation->set_rules('company', 'Company', 'required');
-        $this->form_validation->set_rules('phone', 'Phone');
-
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
-        
-        $additional_data = array(
-            'first_name' => $this->input->post('first_name'),
-            'last_name' => $this->input->post('last_name'),
-            'company' => $this->input->post('company'),
-            'phone' => $this->input->post('phone'),
-        );
-        if ($this->form_validation->run() === TRUE)
-        {
-            // display if form is OK
-            // if id not null
-            if(!empty($id))
-            {
-                if ($this->ion_auth->update($id, $additional_data))
-				{
-					// redirect them back to the admin page if admin, or to the base url if non admin
-					$this->session->set_flashdata('message', $this->ion_auth->messages());
-                    redirect('admin/users/edit/'.$id, 'refresh');
-				}
-				else
-				{
-					// redirect them back to the admin page if admin, or to the base url if non admin
-					$this->session->set_flashdata('message', $this->ion_auth->errors());
-                    redirect('admin/users/edit/'.$id, 'refresh');
-				}
-                // run update data and display with updated data
-                // $this->users_model->_update($id, $data, $table = 'users');
-
-            }
-            // if id NULL
-            else
-            {
-                if($this->ion_auth->register($email, $password, $email, $additional_data))
-                {
-                    // $this->users_model->_create($data, $table = 'users');
-                    $this->session->set_flashdata('message', $this->ion_auth->messages());
-                    redirect('admin'. DIRECTORY_SEPARATOR .'users', 'refresh');    
-                }
-                else
-                {
-                    // unsuccessful register
-                    $this->session->set_flashdata('message', $this->ion_auth->errors());
-                    redirect('admin'. DIRECTORY_SEPARATOR .'users'. DIRECTORY_SEPARATOR .'add', 'refresh');
-                }
-            }
-        }
-        else
-        {
-            $this->session->set_flashdata('message', validation_errors());
-            redirect('admin/users/add', 'refresh');
-            // validation_errors() ? validation_errors() : $this->session->flashdata('message');
-            // echo 'must fill and return to with id or without id';
-            // error message
-        } 
-    }
-
+    
     /**
 	 * @return array A CSRF key-value pair
 	 */

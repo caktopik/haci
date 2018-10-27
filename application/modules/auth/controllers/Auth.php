@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends Public_Controller 
 {
-    private $data = array();
+    // private $data = array();
     public function __construct()
     {
         parent::__construct();
@@ -21,29 +21,29 @@ class Auth extends Public_Controller
 	{   
         if($this->ion_auth->logged_in())
         {
-            redirect('dashboard', 'refresh');
+            redirect('admin/dashboard', 'refresh');
         }
         else
         {
-            $this->data['page_title'] = 'Login';
-            $this->data['page_description'] = 'Login';
+            $data['page_title'] = 'Login';
+            $data['page_description'] = 'Login';
 
-            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+            $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-			$this->data['email'] = array('name' => 'email',
+			$data['email'] = array('name' => 'email',
                 'id' => 'email',
                 'class' => 'form-control',
                 'placeholder' => 'Email',
 				'type' => 'email',
 				'value' => $this->form_validation->set_value('email'),
 			);
-			$this->data['password'] = array('name' => 'password',
+			$data['password'] = array('name' => 'password',
                 'id' => 'password',
                 'class' => 'form-control',
 				'type' => 'password',
 				'placeholder' => 'Password',
 			);
-            $this->load->view('login', $this->data, FALSE);        
+            $this->load->view('login', $data, FALSE);        
         }
     }
 
@@ -65,6 +65,7 @@ class Auth extends Public_Controller
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				$this->build_user_session();
 				redirect('admin/dashboard', 'refresh');
 			}
 			else
@@ -79,21 +80,21 @@ class Auth extends Public_Controller
 		{
 			// the user is not logging in so display the login page
             // set the flash data error message if there is one
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-            $this->data['email'] = array('name' => 'email',
+			$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+            $data['email'] = array('name' => 'email',
                 'id' => 'email',
                 'class' => 'form-control',
                 'placeholder' => 'Email',
 				'type' => 'email',
 				'value' => $this->form_validation->set_value('email'),
 			);
-			$this->data['password'] = array('name' => 'password',
+			$data['password'] = array('name' => 'password',
                 'id' => 'password',
                 'class' => 'form-control',
 				'type' => 'password',
 				'placeholder' => 'Passowrd',
 			);
-			$this->load->view('login', $this->data, FALSE);   
+			$this->load->view('login', $data, FALSE);   
         }
     }
     
@@ -101,7 +102,7 @@ class Auth extends Public_Controller
     {
 		// log the user out
 		$logout = $this->ion_auth->logout();
-
+		$this->destroy_user_session();
 		// redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
 		redirect('auth', 'refresh');
@@ -186,32 +187,32 @@ class Auth extends Public_Controller
 				// display the form
 
 				// set the flash data error message if there is one
-				$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+				$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-				$this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
-				$this->data['new_password'] = array(
+				$data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
+				$data['new_password'] = array(
 					'name' => 'new',
 					'id' => 'new',
 					'type' => 'password',
 					'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
 				);
-				$this->data['new_password_confirm'] = array(
+				$data['new_password_confirm'] = array(
 					'name' => 'new_confirm',
 					'id' => 'new_confirm',
 					'type' => 'password',
 					'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
 				);
-				$this->data['user_id'] = array(
+				$data['user_id'] = array(
 					'name' => 'user_id',
 					'id' => 'user_id',
 					'type' => 'hidden',
 					'value' => $user->id,
 				);
-				$this->data['csrf'] = $this->_get_csrf_nonce();
-				$this->data['code'] = $code;
+				$data['csrf'] = $this->_get_csrf_nonce();
+				$data['code'] = $code;
 
 				// render
-				$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'reset_password', $this->data);
+				$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'reset_password', $data);
 			}
 			else
 			{
@@ -283,5 +284,15 @@ class Auth extends Public_Controller
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
 			redirect("authx/forgot_password", 'refresh');
 		}
+	}
+
+	private function build_user_session()
+	{
+		$this->session->set_userdata($this->ion_auth->user()->row_array());
+	}
+
+	private function destroy_user_session()
+	{
+		$this->session->unset_userdata(array_keys($this->ion_auth->user()->row_array()));
 	}
 }

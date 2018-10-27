@@ -238,6 +238,7 @@ class Template
             $this->_data['template_data'][$_tdkey] = $_tdvalue;
             // return $this;
         }
+        $this->_data['session_data'] = $this->_ci->session->userdata();
         $this->_data['template_data']['active_link'] = $this->_active_link();
         $this->_data['template_data']['nav_menu'] = $this->_get_nav_menu('sidebar_admin_menu');
         $this->_data['template_data']['total_segments'] = $this->_uri_total_segments();

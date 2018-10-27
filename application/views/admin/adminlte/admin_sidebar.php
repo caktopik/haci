@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <img src="<?php echo base_url(); ?>assets/admin/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
     </div>
     <div class="pull-left info">
-      <p>Alexander Pierce</p>
+      <p><?php echo $session_data['first_name'] . ' ' . $session_data['last_name']; ?></p>
       <!-- Status -->
       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
     </div>

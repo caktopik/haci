@@ -12,6 +12,5 @@ class Admin_Controller extends MY_Controller
         // $this->initialize();
         $this->load->helper('url');
         // redirect('admin/'.uri_string());
-        
     }
 }
