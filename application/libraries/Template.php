@@ -24,7 +24,8 @@ class Template
     protected $_layout_path = array();
     protected $_template_layout = array();
     
-    // module, method, controller
+    // directory, module, method, controller
+    protected $_directory = "";
     protected $_controller = "";
     protected $_method = "";
     protected $_module = "";
@@ -43,12 +44,18 @@ class Template
        {
            $this->_module 	= $this->_ci->router->fetch_module();
        }
+       $this->_directory    = $this->_ci->router->fetch_directory();
+       $this->_module 	    = $this->_ci->router->fetch_module();
        $this->_controller	= $this->_ci->router->fetch_class();
        $this->_method 		= $this->_ci->router->fetch_method();
        
     }
 
-    public function _initialize($_config)
+    /**
+     * Get config and running
+     * @param array $_config
+     */
+    protected function _initialize($_config)
     {
         // $this->_load_setting();
         foreach($_config as $key => $value)
@@ -68,11 +75,18 @@ class Template
         $this->_template_data['title_public_name'] = ''; // $this->_data['title_public_name']
     }
 
+    /**
+     * Get total segments
+     */
     protected function _uri_total_segments()
     {
         return $this->_ci->uri->total_segments();
     }
 
+    /**
+     * Running active link 
+     * This method must research
+     */
     public function _active_link()
     {
         $uri = "";
@@ -145,7 +159,13 @@ class Template
         return $this->_template_data['js'];
     }
 
-    public function _nav_menu($location_nav, $level = 0)
+    /**
+     * Build Navigation Menu
+     * @param string $location_nav
+     * @param int $level 
+     * @return array
+     */
+    protected function _nav_menu($location_nav, $level = 0)
     {
         $this->_ci->load->database();
         
@@ -239,13 +259,13 @@ class Template
             // return $this;
         }
         $this->_data['session_data'] = $this->_ci->session->userdata();
-        $this->_data['template_data']['active_link'] = $this->_active_link();
         $this->_data['template_data']['nav_menu'] = $this->_get_nav_menu('sidebar_admin_menu');
         $this->_data['template_data']['total_segments'] = $this->_uri_total_segments();
         $this->_data['template_data']['uri_segment'] = $this->_uri_segment;
         $this->_data['template_data']['module'] = $this->_module;
         $this->_data['template_data']['controller'] = $this->_controller;
         $this->_data['template_data']['method'] = $this->_method;
+        $this->_data['template_data']['directory'] = $this->_directory;
         $this->_data['template_data']['admin_header'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_header', $this->_data, TRUE);
         $this->_data['template_data']['admin_sidebar'] = $this->_ci->load->view($this->_layout_path['layout_admin'].'/'.$this->_admin_theme.'/admin_sidebar', $this->_data, TRUE);
         $this->_data['template_data']['admin_content'] = $this->_ci->load->view($view, $this->_data, TRUE);

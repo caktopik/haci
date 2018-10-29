@@ -102,7 +102,6 @@ class Auth extends Public_Controller
     {
 		// log the user out
 		$logout = $this->ion_auth->logout();
-		$this->destroy_user_session();
 		// redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
 		redirect('auth', 'refresh');
@@ -289,10 +288,5 @@ class Auth extends Public_Controller
 	private function build_user_session()
 	{
 		$this->session->set_userdata($this->ion_auth->user()->row_array());
-	}
-
-	private function destroy_user_session()
-	{
-		$this->session->unset_userdata(array_keys($this->ion_auth->user()->row_array()));
 	}
 }

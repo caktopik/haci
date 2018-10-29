@@ -49,139 +49,221 @@ class Users_admin extends Admin_Controller
                     ->_render_admin('index_user_admin', $data);
     }
 
-    public function add()
+    public function add($view = "")
     {
-        /* 
-        if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-		{
-			redirect('auth', 'refresh');
-		}
-        */
-		$tables = $this->config->item('tables', 'ion_auth');
-		$identity_column = $this->config->item('identity', 'ion_auth');
-		$data['form']['identity_column'] = $identity_column;
+        if ($view == "groups")
+        {
+            $data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-		// validate form input
-		$this->form_validation->set_rules('first_name', 'First Name', 'trim|required');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
-		if ($identity_column !== 'email')
-		{
-			$this->form_validation->set_rules('identity', 'Identity', 'trim|required|is_unique[' . $tables['users'] . '.' . $identity_column . ']');
-			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-		}
-		else
-		{
-			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
-		}
-		$this->form_validation->set_rules('phone', 'Phone', 'trim');
-		$this->form_validation->set_rules('company', 'Company', 'trim');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-		$this->form_validation->set_rules('password_confirm', 'Password Confirm', 'required');
+                $data['form']['first_name'] = array(
+                    'name' => 'first_name',
+                    'id' => 'input-first-name',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'First Name',
+                    'value' => $this->form_validation->set_value('first_name'),
+                );
+                $data['form']['last_name'] = array(
+                    'name' => 'last_name',
+                    'id' => 'input-last-name',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Last Name',
+                    'value' => $this->form_validation->set_value('last_name'),
+                );
+                $data['form']['identity'] = array(
+                    'name' => 'identity',
+                    'id' => 'input-identity',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Identity',
+                    'value' => $this->form_validation->set_value('identity'),
+                );
+                $data['form']['email'] = array(
+                    'name' => 'email',
+                    'id' => 'input-email',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Email',
+                    'value' => $this->form_validation->set_value('email'),
+                );
+                $data['form']['company'] = array(
+                    'name' => 'company',
+                    'id' => 'input-company',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Company',
+                    'value' => $this->form_validation->set_value('company'),
+                );
+                $data['form']['phone'] = array(
+                    'name' => 'phone',
+                    'id' => 'input-phone',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Phone',
+                    'value' => $this->form_validation->set_value('phone'),
+                );
+                $data['form']['password'] = array(
+                    'name' => 'password',
+                    'id' => 'input-password',
+                    'class' => 'form-control',
+                    'type' => 'password',
+                    'placeholder' => 'Password',
+                    'value' => $this->form_validation->set_value('password'),
+                );
+                $data['form']['password_confirm'] = array(
+                    'name' => 'password_confirm',
+                    'id' => 'input-password-confirm',
+                    'class' => 'form-control',
+                    'type' => 'password',
+                    'placeholder' => 'Password Confirm',
+                    'value' => $this->form_validation->set_value('password_confirm'),
+                );
 
-		if ($this->form_validation->run() === TRUE)
-		{
-			$email = strtolower($this->input->post('email'));
-			$identity = ($identity_column === 'email') ? $email : $this->input->post('identity');
-			$password = $this->input->post('password');
+                $data['page_title'] = 'Add Group';
+                $data['page_description'] = 'Form Add Group';
+                
+                $this->template->_render_admin('add_group_admin', $data);
+        }
+        else
+        { 
+            $tables = $this->config->item('tables', 'ion_auth');
+            $identity_column = $this->config->item('identity', 'ion_auth');
+            $data['form']['identity_column'] = $identity_column;
 
-			$additional_data = array(
-				'first_name' => $this->input->post('first_name'),
-				'last_name' => $this->input->post('last_name'),
-				'company' => $this->input->post('company'),
-				'phone' => $this->input->post('phone'),
-			);
-		}
-		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data))
-		{
-			// check to see if we are creating the user
-			// redirect them back to the admin page
-			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect('admin'. DIRECTORY_SEPARATOR .'users', 'refresh');
-		}
-		else
-		{
-			// display the create user form
-			// set the flash data error message if there is one
-			$data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+            // validate form input
+            $this->form_validation->set_rules('first_name', 'First Name', 'trim|required');
+            $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
+            if ($identity_column !== 'email')
+            {
+                $this->form_validation->set_rules('identity', 'Identity', 'trim|required|is_unique[' . $tables['users'] . '.' . $identity_column . ']');
+                $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+            }
+            else
+            {
+                $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
+            }
+            $this->form_validation->set_rules('phone', 'Phone', 'trim');
+            $this->form_validation->set_rules('company', 'Company', 'trim');
+            $this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+            $this->form_validation->set_rules('password_confirm', 'Password Confirm', 'required');
 
-			$data['form']['first_name'] = array(
-				'name' => 'first_name',
-                'id' => 'input-first-name',
-                'class' => 'form-control',
-                'type' => 'text',
-                'placeholder' => 'First Name',
-				'value' => $this->form_validation->set_value('first_name'),
-			);
-			$data['form']['last_name'] = array(
-				'name' => 'last_name',
-                'id' => 'input-last-name',
-                'class' => 'form-control',
-                'type' => 'text',
-                'placeholder' => 'Last Name',
-				'value' => $this->form_validation->set_value('last_name'),
-			);
-			$data['form']['identity'] = array(
-				'name' => 'identity',
-                'id' => 'input-identity',
-                'class' => 'form-control',
-                'type' => 'text',
-                'placeholder' => 'Identity',
-				'value' => $this->form_validation->set_value('identity'),
-			);
-			$data['form']['email'] = array(
-				'name' => 'email',
-                'id' => 'input-email',
-                'class' => 'form-control',
-                'type' => 'text',
-                'placeholder' => 'Email',
-				'value' => $this->form_validation->set_value('email'),
-			);
-			$data['form']['company'] = array(
-				'name' => 'company',
-                'id' => 'input-company',
-                'class' => 'form-control',
-                'type' => 'text',
-                'placeholder' => 'Company',
-				'value' => $this->form_validation->set_value('company'),
-			);
-			$data['form']['phone'] = array(
-				'name' => 'phone',
-                'id' => 'input-phone',
-                'class' => 'form-control',
-                'type' => 'text',
-                'placeholder' => 'Phone',
-				'value' => $this->form_validation->set_value('phone'),
-			);
-			$data['form']['password'] = array(
-				'name' => 'password',
-                'id' => 'input-password',
-                'class' => 'form-control',
-                'type' => 'password',
-                'placeholder' => 'Password',
-				'value' => $this->form_validation->set_value('password'),
-			);
-			$data['form']['password_confirm'] = array(
-				'name' => 'password_confirm',
-				'id' => 'input-password-confirm',
-                'class' => 'form-control',
-                'type' => 'password',
-                'placeholder' => 'Password Confirm',
-				'value' => $this->form_validation->set_value('password_confirm'),
-			);
+            if ($this->form_validation->run() === TRUE)
+            {
+                $email = strtolower($this->input->post('email'));
+                $identity = ($identity_column === 'email') ? $email : $this->input->post('identity');
+                $password = $this->input->post('password');
 
-			$data['page_title'] = 'Add User';
-            $data['page_description'] = 'Form Add User';
-            
-            $this->template->_render_admin('add_user_admin', $data);
-		}
+                $additional_data = array(
+                    'first_name' => $this->input->post('first_name'),
+                    'last_name' => $this->input->post('last_name'),
+                    'company' => $this->input->post('company'),
+                    'phone' => $this->input->post('phone'),
+                );
+            }
+            if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data))
+            {
+                // check to see if we are creating the user
+                // redirect them back to the admin page
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                redirect('admin'. DIRECTORY_SEPARATOR .'users', 'refresh');
+            }
+            else
+            {
+                // display the create user form
+                // set the flash data error message if there is one
+                $data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+                $data['form']['first_name'] = array(
+                    'name' => 'first_name',
+                    'id' => 'input-first-name',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'First Name',
+                    'value' => $this->form_validation->set_value('first_name'),
+                );
+                $data['form']['last_name'] = array(
+                    'name' => 'last_name',
+                    'id' => 'input-last-name',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Last Name',
+                    'value' => $this->form_validation->set_value('last_name'),
+                );
+                $data['form']['identity'] = array(
+                    'name' => 'identity',
+                    'id' => 'input-identity',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Identity',
+                    'value' => $this->form_validation->set_value('identity'),
+                );
+                $data['form']['email'] = array(
+                    'name' => 'email',
+                    'id' => 'input-email',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Email',
+                    'value' => $this->form_validation->set_value('email'),
+                );
+                $data['form']['company'] = array(
+                    'name' => 'company',
+                    'id' => 'input-company',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Company',
+                    'value' => $this->form_validation->set_value('company'),
+                );
+                $data['form']['phone'] = array(
+                    'name' => 'phone',
+                    'id' => 'input-phone',
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Phone',
+                    'value' => $this->form_validation->set_value('phone'),
+                );
+                $data['form']['password'] = array(
+                    'name' => 'password',
+                    'id' => 'input-password',
+                    'class' => 'form-control',
+                    'type' => 'password',
+                    'placeholder' => 'Password',
+                    'value' => $this->form_validation->set_value('password'),
+                );
+                $data['form']['password_confirm'] = array(
+                    'name' => 'password_confirm',
+                    'id' => 'input-password-confirm',
+                    'class' => 'form-control',
+                    'type' => 'password',
+                    'placeholder' => 'Password Confirm',
+                    'value' => $this->form_validation->set_value('password_confirm'),
+                );
+
+                $data['page_title'] = 'Add User';
+                $data['page_description'] = 'Form Add User';
+                
+                $this->template->_render_admin('add_user_admin', $data);
+            }
+        }    
     }
 
-    public function view($id)
+    public function view($view = "", $id)
     {
-        $data['page_title'] = 'Edit User';
-        $data['page_description'] = 'Form Edit User';
-        $data['dt_users'] = $this->users_model->_read($id);
-        $this->template->_render_admin('view_user_admin', $data);
+        if($view == "groups")
+        {
+            $data['page_title'] = 'Edit Group';
+            $data['page_description'] = 'Form Edit Group';
+            // $data['dt_users'] = $this->users_model->_read_group($id);
+            $data['dt_users'] = $this->users_model->_read($id);
+            $this->template->_render_admin('view_group_admin', $data);
+        }
+        else
+        {
+            $data['page_title'] = 'Edit User';
+            $data['page_description'] = 'Form Edit User';
+            $data['dt_users'] = $this->users_model->_read($id);
+            $this->template->_render_admin('view_user_admin', $data);
+        }
     }
 
     public function edit($id)
@@ -235,23 +317,18 @@ class Users_admin extends Admin_Controller
 				}
 
 				// Only allow updating groups if user is admin
-				if ($this->ion_auth->is_admin())
-				{
-					// Update the groups user belongs to
-					$groupData = $this->input->post('groups');
 
-					if (isset($groupData) && !empty($groupData))
-					{
+                // Update the groups user belongs to
+                $groupData = $this->input->post('groups');
 
-						$this->ion_auth->remove_from_group('', $id);
-
-						foreach ($groupData as $grp)
-						{
-							$this->ion_auth->add_to_group($grp, $id);
-						}
-
-					}
-				}
+                if (isset($groupData) && !empty($groupData))
+                {
+                    $this->ion_auth->remove_from_group('', $id);
+                    foreach ($groupData as $grp)
+                    {
+                        $this->ion_auth->add_to_group($grp, $id);
+                    }
+                }
 
 				// check to see if we are updating the user
 				if ($this->ion_auth->update($user->id, $dataform))
@@ -375,6 +452,27 @@ class Users_admin extends Admin_Controller
         redirect('admin'. DIRECTORY_SEPARATOR .'users', 'refresh');
     }
 
+    public function groups()
+    {
+        $this->load->library('datatables');
+        $data['page_title'] = 'Groups';
+        $data['page_description'] = 'Groups List';
+        $data['message'] = $this->session->flashdata('message');
+        $data['dt_users'] = $this->users_model->_datatable_index();
+        $this->template->_set_css('admin','dataTables.bootstrap.min.css','adminlte/bower_components/datatables.net-bs/css')
+                    ->_set_js('admin','footer','jquery.dataTables.min.js','adminlte/bower_components/datatables.net/js')
+                    ->_set_js('admin','footer','dataTables.bootstrap.min.js','adminlte/bower_components/datatables.net-bs/js')
+                    // ->_set_js('admin','footer','serverside.dataTables.js','adminlte/script')
+                    ->_set_js('admin','footer','htmldom.dataTables.js','adminlte/script')
+                    ->_set_js('admin','footer','dataTables.buttons.min.js','https://cdn.datatables.net/buttons/1.5.2/js', TRUE)
+                    ->_set_js('admin','footer','buttons.flash.min.js','https://cdn.datatables.net/buttons/1.5.2/js', TRUE)
+                    ->_set_js('admin','footer','jszip.min.js','https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3', TRUE)
+                    ->_set_js('admin','fopdfmake.min.js','https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36', TRUE)
+                    ->_set_js('admin','footer','vfs_fonts.js','https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36', TRUE)
+                    ->_set_js('admin','footer','buttons.html5.min.js','https://cdn.datatables.net/buttons/1.5.2/js', TRUE)
+                    ->_set_js('admin','footer','buttons.print.min.js','https://cdn.datatables.net/buttons/1.5.2/js', TRUE)
+                    ->_render_admin('index_group_admin', $data);
+    }
     
     /**
 	 * @return array A CSRF key-value pair
