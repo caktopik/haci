@@ -9,7 +9,7 @@ class Users_admin extends Admin_Controller
     {
         parent::__construct();
 	
-        $this->load->model('users_model');
+        $this->load->model(array('users_model', 'groups_model'));
         $this->load->library(array('template', 'form_validation'));
         // $this->load->library('database');
         $this->load->helper(array('adminlte_helper','language','url', 'form'));
@@ -53,77 +53,43 @@ class Users_admin extends Admin_Controller
     {
         if ($view == "groups")
         {
-            $data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+            $this->form_validation->set_rules('group_name', 'Group Name', 'trim|required|alpha_dash');
 
-                $data['form']['first_name'] = array(
-                    'name' => 'first_name',
-                    'id' => 'input-first-name',
-                    'class' => 'form-control',
-                    'type' => 'text',
-                    'placeholder' => 'First Name',
-                    'value' => $this->form_validation->set_value('first_name'),
+            if ($this->form_validation->run() === TRUE)
+            {
+                $new_group_id = $this->ion_auth->create_group($this->input->post('group_name'), $this->input->post('description'));
+                if ($new_group_id)
+                {
+                    // check to see if we are creating the group
+                    // redirect them back to the admin page
+                    $this->session->set_flashdata('message', $this->ion_auth->messages());
+                    redirect('admin'. DIRECTORY_SEPARATOR .'users'. DIRECTORY_SEPARATOR .'groups', 'refresh');
+                }
+            }
+            else
+            {
+                // display the create group form
+                // set the flash data error message if there is one
+                $data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+                $data['form']['group_name'] = array(
+                    'name'  => 'group_name',
+                    'id'    => 'group_name',
+                    'type'  => 'text',
+                    'value' => $this->form_validation->set_value('group_name'),
                 );
-                $data['form']['last_name'] = array(
-                    'name' => 'last_name',
-                    'id' => 'input-last-name',
-                    'class' => 'form-control',
-                    'type' => 'text',
-                    'placeholder' => 'Last Name',
-                    'value' => $this->form_validation->set_value('last_name'),
-                );
-                $data['form']['identity'] = array(
-                    'name' => 'identity',
-                    'id' => 'input-identity',
-                    'class' => 'form-control',
-                    'type' => 'text',
-                    'placeholder' => 'Identity',
-                    'value' => $this->form_validation->set_value('identity'),
-                );
-                $data['form']['email'] = array(
-                    'name' => 'email',
-                    'id' => 'input-email',
-                    'class' => 'form-control',
-                    'type' => 'text',
-                    'placeholder' => 'Email',
-                    'value' => $this->form_validation->set_value('email'),
-                );
-                $data['form']['company'] = array(
-                    'name' => 'company',
-                    'id' => 'input-company',
-                    'class' => 'form-control',
-                    'type' => 'text',
-                    'placeholder' => 'Company',
-                    'value' => $this->form_validation->set_value('company'),
-                );
-                $data['form']['phone'] = array(
-                    'name' => 'phone',
-                    'id' => 'input-phone',
-                    'class' => 'form-control',
-                    'type' => 'text',
-                    'placeholder' => 'Phone',
-                    'value' => $this->form_validation->set_value('phone'),
-                );
-                $data['form']['password'] = array(
-                    'name' => 'password',
-                    'id' => 'input-password',
-                    'class' => 'form-control',
-                    'type' => 'password',
-                    'placeholder' => 'Password',
-                    'value' => $this->form_validation->set_value('password'),
-                );
-                $data['form']['password_confirm'] = array(
-                    'name' => 'password_confirm',
-                    'id' => 'input-password-confirm',
-                    'class' => 'form-control',
-                    'type' => 'password',
-                    'placeholder' => 'Password Confirm',
-                    'value' => $this->form_validation->set_value('password_confirm'),
+                $data['form']['description'] = array(
+                    'name'  => 'description',
+                    'id'    => 'description',
+                    'type'  => 'text',
+                    'value' => $this->form_validation->set_value('description'),
                 );
 
                 $data['page_title'] = 'Add Group';
                 $data['page_description'] = 'Form Add Group';
                 
                 $this->template->_render_admin('add_group_admin', $data);
+            }    
         }
         else
         { 
@@ -458,7 +424,7 @@ class Users_admin extends Admin_Controller
         $data['page_title'] = 'Groups';
         $data['page_description'] = 'Groups List';
         $data['message'] = $this->session->flashdata('message');
-        $data['dt_users'] = $this->users_model->_datatable_index();
+        $data['dt_groups'] = $this->groups_model->_datatable_index();
         $this->template->_set_css('admin','dataTables.bootstrap.min.css','adminlte/bower_components/datatables.net-bs/css')
                     ->_set_js('admin','footer','jquery.dataTables.min.js','adminlte/bower_components/datatables.net/js')
                     ->_set_js('admin','footer','dataTables.bootstrap.min.js','adminlte/bower_components/datatables.net-bs/js')
