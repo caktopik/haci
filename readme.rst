@@ -84,4 +84,4 @@ Credits / Addon
 ***************
 Donation and Support
 ***************
--  Support me with `Buy me a cup of coffee <https://paypal.me/caktopik>`_
+-  Support me by `Buying me a cup of coffee <https://paypal.me/caktopik>`_
