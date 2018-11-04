@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="box-body">
             <div class="col-sm-6">
               <a class="btn btn-app bg-olive" href="<?php echo site_url('admin/users/add/groups'); ?>">
-                <i class="fa fa-user-plus"></i> Add / Create
+                <i class="fa fa-group"></i> Add / Create
               </a>
             </div>
             <div class="col-sm-6">
@@ -80,15 +80,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <tr>
                         <th>Group Name</th>
                         <th>Description</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                     <?php 
-                    foreach ($dt_users as $dt)
+                    foreach ($dt_groups as $dt)
                     {
                       echo '<tr>' .PHP_EOL;
-                        echo '<td>'.$dt['group_name'].'</td>' .PHP_EOL;
+                        echo '<td>'.$dt['name'].'</td>' .PHP_EOL;
                         echo '<td>'.$dt['description'].'</td>' .PHP_EOL;
+                        echo '<td>'.PHP_EOL.'
+                        <a href="'.site_url('admin/users/groups/view/'.$dt['id']).'" data-skin="skin-blue" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>'.PHP_EOL.'
+                        <a href="'.site_url('admin/users/groups/edit/'.$dt['id']).'" data-skin="skin-green" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>'.PHP_EOL.'
+                        <a href="'.site_url('admin/users/groups/delete/'.$dt['id']).'" data-skin="skin-red" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>'.PHP_EOL.'
+                        </td>'.PHP_EOL;
                       echo '</tr>' .PHP_EOL;
                     }
                      ?>
@@ -97,6 +103,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <tr>
                         <th>Group Name</th>
                         <th>Description</th>
+                        <th>Action</th>
                       </tr>
                     </tfoot>
                   </table>

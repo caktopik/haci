@@ -30,20 +30,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <!-- /.box-header -->
           <div class="box-body">
             <div class="col-sm-6">
-              <a class="btn btn-app" href="<?php echo site_url('admin/users'); ?>">
+              <a class="btn btn-app" href="<?php echo site_url('admin/users/groups'); ?>">
                 <i class="fa fa-arrow-left"></i> Back
               </a>
-              <a class="btn btn-app" href="<?php echo site_url('admin/users/edit/'.$dt_users['id']); ?>">
+              <a class="btn btn-app" href="<?php echo site_url('admin/users/groups/view/'.$dt_groups['id']); ?>">
                 <i class="fa fa-rotate-left"></i> Undo
               </a>
             </div>
             <div class="col-sm-6">
-              <a class="btn btn-app pull-right bg-maroon" href="<?php echo site_url('admin/users/update/'.$dt_users['id']); ?>">
-                <i class="fa fa-download"></i> Save
-              </a>            
-              <a class="btn btn-app pull-right bg-maroon" href="<?php echo site_url('admin/users/delete/'.$dt_users['id']); ?>">
-                <i class="fa fa-download"></i> Delete
-              </a>
+              
             </div>
           </div>
           <!-- /.box-body -->
@@ -69,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <label class="col-sm-2 control-label">Id</label>
                 <div class="col-sm-8">
-                  <input name="id" class="form-control" id="input-id" placeholder="Username" type="text" value="<?php echo $dt_users['id']; ?>">
+                  <input name="id" class="form-control" id="input-id" placeholder="Id" type="text" value="<?php echo $dt_groups['id']; ?>">
                 </div>
                 <div class="col-sm-1">
                   
@@ -80,9 +75,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-sm-1">
                   
                 </div>
-                <label class="col-sm-2 control-label">Username</label>
+                <label class="col-sm-2 control-label">Group name</label>
                 <div class="col-sm-8">
-                  <input name="username" class="form-control" id="input-username" placeholder="Username" type="text" value="<?php echo $dt_users['username']; ?>">
+                  <input name="group_name" class="form-control" id="input-group-name" placeholder="Group Name" type="text" value="<?php echo $dt_groups['name']; ?>">
                 </div>
                 <div class="col-sm-1">
                   
@@ -93,80 +88,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-sm-1">
                   
                 </div>
-                <label class="col-sm-2 control-label">Email</label>
+                <label class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-8">
-                  <input name="email" class="form-control" id="input-email" placeholder="Email" type="email" value="<?php echo $dt_users['email']; ?>">
+                  <input name="description" class="form-control" id="input-description" placeholder="Description" type="text" value="<?php echo $dt_groups['description']; ?>">
                 </div>
                 <div class="col-sm-1">
                   
                 </div>
               </div>
               <!-- /.form-group -->
-              <div class="form-group">
-                <div class="col-sm-1">
-                  
-                </div>
-                <label class="col-sm-2 control-label">Password</label>
-                <div class="col-sm-8">
-                  <input name="password" class="form-control" id="input-password" placeholder="Password" type="password">
-                </div>
-                <div class="col-sm-1">
-                  
-                </div>
-              </div>
-              <!-- /.form-group -->
-              <div class="form-group">
-                <div class="col-sm-1">
-                  
-                </div>
-                <label class="col-sm-2 control-label">First Name</label>
-                <div class="col-sm-8">
-                  <input name="first_name" class="form-control" id="input-first-name" placeholder="First Name" type="text" value="<?php echo $dt_users['first_name']; ?>">
-                </div>
-                <div class="col-sm-1">
-                  
-                </div>
-              </div>
-              <!-- /.form-group -->
-              <div class="form-group">
-                <div class="col-sm-1">
-                  
-                </div>
-                <label class="col-sm-2 control-label">Last Name</label>
-                <div class="col-sm-8">
-                  <input name="last_name" class="form-control" id="input-last-name" placeholder="Last Name" type="text" value="<?php echo $dt_users['last_name']; ?>">
-                </div>
-                <div class="col-sm-1">
-                  
-                </div>
-              </div>
-              <!-- /.form-group -->
-              <div class="form-group">
-                <div class="col-sm-1">
-                  
-                </div>
-                <label class="col-sm-2 control-label">Company</label>
-                <div class="col-sm-8">
-                  <input name="company" class="form-control" id="input-company" placeholder="Company Name" type="text" value="<?php echo $dt_users['company']; ?>">
-                </div>
-                <div class="col-sm-1">
-                  
-                </div>
-              </div>
-              <!-- /.form-group -->
-              <div class="form-group">
-                <div class="col-sm-1">
-                  
-                </div>
-                <label class="col-sm-2 control-label">Phone</label>
-                <div class="col-sm-8">
-                  <input name="phone" class="form-control" id="input-phone" placeholder="Phone" type="text" value="<?php echo $dt_users['phone']; ?>">
-                </div>
-                <div class="col-sm-1">
-                  
-                </div>
-              </div>
-              <!-- /.form-group -->
+              
             </div>
             <!-- /.form-horizontal -->
   

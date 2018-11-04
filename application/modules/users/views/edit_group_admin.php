@@ -17,18 +17,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <!-- Main content -->
   <section class="content">
-    <?php if(!empty($message))
-    {
-    ?> 
-    <div class="alert alert-danger alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      <h4><i class="icon fa fa-ban"></i> Alert!</h4> 
-      <?php echo $message; ?>
-    </div>
-    <?php } ?>
-    <!-- /.alert -->
     <div class="row">
       <div class="col-sm-12">
+      <?php echo form_open(uri_string()); ?>
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Tools</h3>
@@ -43,12 +34,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <a class="btn btn-app" href="<?php echo site_url('admin/users/groups'); ?>">
                 <i class="fa fa-arrow-left"></i> Back
               </a>
-              <a class="btn btn-app" href="<?php echo site_url('admin/users/groups/add'); ?>">
+              <a class="btn btn-app" href="<?php echo site_url('admin/users/groups/edit/'.$dt_groups['id']); ?>">
                 <i class="fa fa-rotate-left"></i> Undo
               </a>
             </div>
             <div class="col-sm-6">
-                         
+              
             </div>
           </div>
           <!-- /.box-body -->
@@ -59,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.row -->
     <div class="row">
       <div class="col-sm-12">
-        <?php echo form_open('admin/users/add/groups'); ?>
+        
         <div class="box box-success">
           <div class="box-header with-border">
             <h3 class="box-title">Form</h3>
@@ -68,14 +59,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="box-body">
           
             <div class="form-horizontal">
+              <div class="form-group hidden">
+                <div class="col-sm-1">
+                  
+                </div>
+                <label class="col-sm-2 control-label">Id</label>
+                <div class="col-sm-8">
+                  <input name="id" class="form-control" id="input-id" placeholder="Id" type="text" value="<?php echo $dt_groups['id']; ?>">
+                </div>
+                <div class="col-sm-1">
+                  
+                </div>
+              </div>
+              <!-- /.form-group -->
               <div class="form-group">
                 <div class="col-sm-1">
                   
                 </div>
-                <label class="col-sm-2 control-label">Group Name</label>
+                <label class="col-sm-2 control-label">Group name</label>
                 <div class="col-sm-8">
-                  <!-- <input name="first_name" class="form-control" id="input-first-name" placeholder="First Name" type="text"> -->
-                  <?php echo form_input($form['group_name']);?>
+                  <input name="group_name" class="form-control" id="input-group-name" placeholder="Group Name" type="text" value="<?php echo $dt_groups['name']; ?>">
                 </div>
                 <div class="col-sm-1">
                   
@@ -88,7 +91,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <label class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-8">
-                  <?php echo form_input($form['description']);?>
+                  <input name="description" class="form-control" id="input-description" placeholder="Description" type="text" value="<?php echo $dt_groups['description']; ?>">
+                </div>
+                <div class="col-sm-1">
+                  
+                </div>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group hidden">
+                <div class="col-sm-1">
+                  
+                </div>
+                <label class="col-sm-2 control-label">CSRF</label>
+                <div class="col-sm-8">
+                  <?php echo form_hidden($form['csrf']);?>
                 </div>
                 <div class="col-sm-1">
                   
@@ -100,30 +116,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   
           </div>
           <!-- /.box-body -->
-          <div class="box-footer">
-            <div class="col-sm-1">
-            </div>
-            <div class="col-sm-2">
-            </div>
-            <div class="col-sm-8">
-              <button type="submit" class="btn btn-info">Save</button>
-            </div>
-            
-            <div class="col-sm-1">
-            </div> 
-           </div>
+          
         </div>
         <!-- /.box -->
-        <?php echo form_close(); ?>
+      <?php echo form_close(); ?>
       </div>
       <!-- /.col-sm-12 -->
 
     </div>
     <!-- /.row -->
+  
     <!--------------------------
       | Your Page Content Here |
       -------------------------->
-
+    
   </section>
   <!-- /.content -->
 </div>

@@ -53,6 +53,17 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+/**
+ * Route for one controller multi method
+ */
+$route['admin/([a-zA-Z_-]+)/(:any)/add'] = '$1/$1_admin/add_$2';
+$route['admin/([a-zA-Z_-]+)/(:any)/view/(:any)'] = '$1/$1_admin/view_$2/$3';
+$route['admin/([a-zA-Z_-]+)/(:any)/edit/(:any)'] = '$1/$1_admin/edit_$2/$3';
+$route['admin/([a-zA-Z_-]+)/(:any)/delete/(:any)'] = '$1/$1_admin/delete_$2/$3';
+
+/**
+ * Route for common controller
+ */
 $route['admin/([a-zA-Z_-]+)/(:any)/(:any)/(:any)'] = '$1/$1_admin/$2/$3/$4';
 $route['admin/([a-zA-Z_-]+)/(:any)/(:any)'] = '$1/$1_admin/$2/$3';
 $route['admin/([a-zA-Z_-]+)/(:any)'] = '$1/$1_admin/$2';
