@@ -82,6 +82,6 @@ Credits / Addon
 -  `DataTables Library <https://github.com/IgnitedDatatables/Ignited-Datatables>`_
 
 ***************
-Donation
+Donation and Support
 ***************
--  `Buy me a cup of coffee <https://paypal.me/caktopik>`_
+-  Support me with `Buy me a cup of coffee <https://paypal.me/caktopik>`_
