@@ -113,9 +113,9 @@ class Auth extends Public_Controller
         
         if ($this->form_validation->run() === FALSE)
 		{
-			$this->data['type'] = $this->config->item('identity', 'ion_auth');
+			$data['type'] = $this->config->item('identity', 'ion_auth');
 			// setup the input
-			$this->data['email'] = array('name' => 'email',
+			$data['email'] = array('name' => 'email',
                 'id' => 'email',
                 'class' => 'form-control',
                 'placeholder' => 'Email',
@@ -123,11 +123,11 @@ class Auth extends Public_Controller
 				'value' => $this->form_validation->set_value('email'),
 			);
 
-    		$this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
+    		$data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
 	
 			// set any errors and display the form
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->load->view('auth' . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
+			$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			$this->load->view('auth' . DIRECTORY_SEPARATOR . 'forgot_password', $data);
         }
         else
 		{
@@ -193,13 +193,13 @@ class Auth extends Public_Controller
 					'name' => 'new',
 					'id' => 'new',
 					'type' => 'password',
-					'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+					'pattern' => '^.{' . $data['min_password_length'] . '}.*$',
 				);
 				$data['new_password_confirm'] = array(
 					'name' => 'new_confirm',
 					'id' => 'new_confirm',
 					'type' => 'password',
-					'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+					'pattern' => '^.{' . $data['min_password_length'] . '}.*$',
 				);
 				$data['user_id'] = array(
 					'name' => 'user_id',
@@ -211,7 +211,7 @@ class Auth extends Public_Controller
 				$data['code'] = $code;
 
 				// render
-				$this->_render_page('authx' . DIRECTORY_SEPARATOR . 'reset_password', $data);
+				$this->load->view('auth' . DIRECTORY_SEPARATOR . 'reset_password', $data);
 			}
 			else
 			{
@@ -236,12 +236,12 @@ class Auth extends Public_Controller
 					{
 						// if the password was successfully changed
 						$this->session->set_flashdata('message', $this->ion_auth->messages());
-						redirect("authx/login", 'refresh');
+						redirect("auth/login", 'refresh');
 					}
 					else
 					{
 						$this->session->set_flashdata('message', $this->ion_auth->errors());
-						redirect('authx/reset_password/' . $code, 'refresh');
+						redirect('auth/reset_password/' . $code, 'refresh');
 					}
 				}
 			}
@@ -288,5 +288,30 @@ class Auth extends Public_Controller
 	private function build_user_session()
 	{
 		$this->session->set_userdata($this->ion_auth->user()->row_array());
+	}
+
+	/**
+	 * @return array A CSRF key-value pair
+	 */
+	public function _get_csrf_nonce()
+	{
+		$this->load->helper('string');
+		$key = random_string('alnum', 8);
+		$value = random_string('alnum', 20);
+		$this->session->set_flashdata('csrfkey', $key);
+		$this->session->set_flashdata('csrfvalue', $value);
+
+		return array($key => $value);
+    }
+    
+    /**
+	 * @return bool Whether the posted CSRF token matches
+	 */
+	public function _valid_csrf_nonce(){
+		$csrfkey = $this->input->post($this->session->flashdata('csrfkey'));
+		if ($csrfkey && $csrfkey === $this->session->flashdata('csrfvalue')){
+			return TRUE;
+		}
+			return FALSE;
 	}
 }
