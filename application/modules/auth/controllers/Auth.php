@@ -192,18 +192,21 @@ class Auth extends Public_Controller
 				$data['new_password'] = array(
 					'name' => 'new',
 					'id' => 'new',
+					'class' => 'form-control',
 					'type' => 'password',
 					'pattern' => '^.{' . $data['min_password_length'] . '}.*$',
 				);
 				$data['new_password_confirm'] = array(
 					'name' => 'new_confirm',
 					'id' => 'new_confirm',
+					'class' => 'form-control',
 					'type' => 'password',
 					'pattern' => '^.{' . $data['min_password_length'] . '}.*$',
 				);
 				$data['user_id'] = array(
 					'name' => 'user_id',
 					'id' => 'user_id',
+					'class' => 'form-control',
 					'type' => 'hidden',
 					'value' => $user->id,
 				);
