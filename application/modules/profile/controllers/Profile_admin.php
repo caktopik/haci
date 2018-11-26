@@ -26,4 +26,14 @@ class Profile_admin extends Admin_Controller
         
         $this->template->_render_admin('profile_index', $data);   
     }
+
+    public function edit()
+    {
+
+    }
+
+    public function image_upload()
+    {
+        
+    }
 }
